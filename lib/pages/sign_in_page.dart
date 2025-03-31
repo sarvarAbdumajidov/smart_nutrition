@@ -1,0 +1,133 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:smart_nutrition/pages/admin/home_page.dart';
+import 'package:smart_nutrition/pages/categories_page.dart';
+import 'package:smart_nutrition/pages/sign_up_page.dart';
+import 'package:smart_nutrition/provider/providers.dart';
+import 'package:smart_nutrition/service/auth_service.dart';
+
+class SignInPage extends ConsumerWidget {
+  const SignInPage({super.key});
+
+  void _signIn(BuildContext context, WidgetRef ref) async {
+    final emailController = ref.read(emailControllerProvider);
+    final passwordController = ref.read(passwordControllerProvider);
+    String email = emailController.text.trim();
+    String password = passwordController.text.trim();
+    final auth = ref.read(authProvider.notifier);
+
+    if (email.isEmpty || password.isEmpty) {
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text('Fill in the blank')));
+      return;
+    }
+    final user = await auth.signInUser(
+      emailController.text.trim(),
+      passwordController.text.trim(),
+    );
+
+    if (user != null) {
+      ref.read(loadingProvider.notifier).startLoading();
+      String? role = await auth.getUserRole();
+      ref.read(loadingProvider.notifier).stopLoading();
+      ref.read(emailControllerProvider).clear();
+      ref.read(passwordControllerProvider).clear();
+      switch(role){
+        case 'user' : Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => CategoriesPage()));
+        case 'admin' : Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => HomePage()));
+      }
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text("Incorrect login or password!")),
+      );
+    }
+  }
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final isLoading = ref.watch(loadingProvider);
+    final emailController = ref.watch(emailControllerProvider);
+    final passwordController = ref.watch(passwordControllerProvider);
+    return Scaffold(
+      body: Stack(
+        children: [
+          Center(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 40),
+              child: SingleChildScrollView(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text('Welcome', style: TextStyle(fontSize: 40)),
+                    const SizedBox(height: 40),
+
+                    // EMAIL
+                    SizedBox(
+                      width: double.infinity,
+                      child: TextField(
+                        controller: emailController,
+                        style: TextStyle(color: Colors.white),
+                        keyboardType: TextInputType.emailAddress,
+                        decoration: InputDecoration(hintText: 'Email'),
+                      ),
+                    ),
+                    const SizedBox(height: 20),
+
+                    // PASSWORD
+                    SizedBox(
+                      width: double.infinity,
+                      child: TextField(
+                        obscureText: true,
+                        controller: passwordController,
+                        style: TextStyle(color: Colors.white),
+                        keyboardType: TextInputType.visiblePassword,
+                        decoration: InputDecoration(hintText: 'Password'),
+                      ),
+                    ),
+                    const SizedBox(height: 40),
+
+                    // Sign in
+                    SizedBox(
+                      width: double.infinity,
+                      height: 40,
+                      child: MaterialButton(
+                        color: Color(0xFFBD883E),
+                        onPressed: () {
+
+                          _signIn(context, ref);
+
+                        },
+                        child: Text('Sign In'),
+                      ),
+                    ),
+                    const SizedBox(height: 20),
+
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Text('Don\'t have an account?'),
+                        const SizedBox(width: 5),
+                        TextButton(
+                          onPressed: () {
+                            ref.read(emailControllerProvider).clear();
+                            ref.read(passwordControllerProvider).clear();
+                            Navigator.of(context).push(
+                              MaterialPageRoute(builder: (context) => SignUpPage()),
+                            );
+                          },
+                          child: Text('Sign Up'),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+          isLoading ? Center(child: CircularProgressIndicator(),) : SizedBox.shrink(),
+        ],
+      ),
+    );
+  }
+}
