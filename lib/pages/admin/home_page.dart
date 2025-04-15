@@ -7,15 +7,31 @@ import 'package:smart_nutrition/pages/sign_in_page.dart';
 import '../../models/meal_model.dart';
 import '../../provider/providers.dart';
 
-class HomePage extends ConsumerWidget {
-  HomePage({super.key});
+class HomePage extends ConsumerStatefulWidget {
+  const HomePage({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<HomePage> createState() => _HomePageState();
+}
+class _HomePageState extends ConsumerState<HomePage> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    Future.delayed(Duration.zero, () {
+      ref.read(loadingProvider.notifier).startLoading();
+      ref.refresh(mealProvider); // refreshni keyinroq chaqirish
+      ref.read(loadingProvider.notifier).stopLoading();
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final isLoading = ref.watch(loadingProvider);
     final auth = ref.read(authProvider.notifier);
     final mealData = ref.watch(mealProvider);
     final searchQuery = ref.watch(searchQueryProvider).toLowerCase();
+
 
     return Scaffold(
       appBar: AppBar(
@@ -40,56 +56,112 @@ class HomePage extends ConsumerWidget {
             padding: const EdgeInsets.only(right: 10),
             child: IconButton(
               onPressed: () async {
-                String result = await Navigator.push(
+                String? result = await Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => AddMealPage()),
+                  MaterialPageRoute(
+                    builder: (context) => AddMealPage(isEditing: false),
+                  ),
                 );
-                if (result == 'success') {
+
+
                   ref.read(loadingProvider.notifier).startLoading();
                   ref.refresh(mealProvider);
                   ref.read(loadingProvider.notifier).stopLoading();
-                }
+
               },
               icon: Icon(Icons.add),
             ),
+
+
           ),
         ],
         leading: IconButton(
           onPressed: () async {
-            await auth.signOut();
-            Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(builder: (context) => SignInPage()),
+            showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return AlertDialog(
+                  title: Text('Do you want to log out?'),
+                  content: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    child: SizedBox(width: double.infinity, height: 1),
+                  ),
+                  actions: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        TextButton(
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                          child: Text('No', style: TextStyle(fontSize: 20)),
+                        ),
+                        TextButton(
+                          onPressed: () {
+                            ref.read(searchQueryProvider.notifier).state = "";
+                            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => SignInPage()));
+                          },
+                          child: Text('Yes', style: TextStyle(fontSize: 20)),
+                        ),
+                      ],
+                    ),
+                  ],
+                );
+              },
             );
           },
           icon: Icon(Icons.logout_outlined),
         ),
       ),
-      body: mealData.when(
-        data: (meals) {
-          final filteredMeals =
-          meals.where((meal) => meal.title!.toLowerCase().contains(searchQuery)).toList();
+      body: RefreshIndicator(
+        child: mealData.when(
+          data: (meals) {
+            final filteredMeals = meals.where(
+                    (meal) =>
+                meal.title!.toLowerCase().contains(searchQuery) || // nom bo'yicha qidirish
+                    meal.title!.toLowerCase().contains(searchQuery) || // tavsif bo'yicha qidirish
+                    meal.ingredients!.toLowerCase().contains(searchQuery), // ingredients bo'yicha qidirish
 
-          if (filteredMeals.isEmpty) {
-            return Center(child: Text('No food available'));
-          }
+            ).toList();
 
-          return ListView.builder(
-            padding: EdgeInsets.only(left: 20, right: 20, top: 20, bottom: 40),
-            itemCount: filteredMeals.length,
-            cacheExtent: 300, // Faqat ko'rinadigan qismi yuklanadi
-            itemBuilder: (context, index) {
-              return _mealItem(filteredMeals[index],ref,isLoading);
-            },
-          );
+
+
+            if (filteredMeals.isEmpty) {
+              return Center(child: Text('No food available'));
+            }
+
+            return ListView.builder(
+              padding: EdgeInsets.only(
+                left: 20,
+                right: 20,
+                top: 20,
+                bottom: 40,
+              ),
+              itemCount: filteredMeals.length,
+              cacheExtent: 300, // Faqat ko'rinadigan qismi yuklanadi
+              itemBuilder: (context, index) {
+                return _mealItem(filteredMeals[index], ref, isLoading, context);
+              },
+            );
+          },
+          error: (error, stackTrace) => Center(child: Text('Xatolik: $error')),
+          loading: () => Center(child: LinearProgressIndicator()),
+        ),
+        onRefresh: () async {
+          ref.read(loadingProvider.notifier).startLoading();
+          ref.refresh(mealProvider);
+          ref.read(loadingProvider.notifier).stopLoading();
         },
-        error: (error, stackTrace) => Center(child: Text('Xatolik: $error')),
-        loading: () => Center(child: LinearProgressIndicator()),
       ),
     );
   }
 
-  Widget _mealItem(Meal meal,WidgetRef ref, final isLoading) {
+  Widget _mealItem(
+    Meal meal,
+    WidgetRef ref,
+    final isLoading,
+    BuildContext context,
+  ) {
     return Stack(
       children: [
         Padding(
@@ -110,11 +182,18 @@ class HomePage extends ConsumerWidget {
                     fit: BoxFit.cover,
                     width: double.infinity,
                     height: 250,
-                    memCacheHeight: 250, // Faqat kerakli hajmda yuklash
+                    memCacheHeight: 250,
+                    // Faqat kerakli hajmda yuklash
                     memCacheWidth: 400,
-                    placeholder: (context, url) => Center(child: CircularProgressIndicator()),
-                    errorWidget: (context, url, error) =>
-                        Icon(Icons.broken_image, size: 50, color: Colors.red),
+                    placeholder:
+                        (context, url) =>
+                            Center(child: CircularProgressIndicator()),
+                    errorWidget:
+                        (context, url, error) => Icon(
+                          Icons.broken_image,
+                          size: 50,
+                          color: Colors.red,
+                        ),
                   ),
                 ),
                 Container(
@@ -135,10 +214,9 @@ class HomePage extends ConsumerWidget {
                   ),
                 ),
                 Align(
-
                   alignment: Alignment.topRight,
                   child: Container(
-                   margin: EdgeInsets.all(10),
+                    margin: EdgeInsets.all(10),
                     alignment: Alignment.center,
                     width: 97,
                     height: 40,
@@ -149,24 +227,47 @@ class HomePage extends ConsumerWidget {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
-                        IconButton(onPressed: (){
+                        IconButton(
+                          onPressed: () {
+                            ref.read(searchQueryProvider.notifier).state = "";
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder:
+                                    (context) => AddMealPage(
+                                      isEditing: true,
+                                      meal: meal,
+                                    ),
+                              ),
+                            );
+                          },
+                          icon: Icon(
+                            CupertinoIcons.pen,
+                            color: Colors.blueAccent,
+                          ),
+                        ),
+                        IconButton(
+                          onPressed: () async {
 
-                        }, icon: Icon(CupertinoIcons.pen,color: Colors.yellow)),
-                        IconButton(onPressed: ()async{
-                          ref.read(loadingProvider.notifier).startLoading();
-                        await  ref.read(authProvider.notifier).deleteMeal(meal.id!, meal.imageUrl!);
-                          ref.refresh(mealProvider);
-                          ref.read(loadingProvider.notifier).stopLoading();
-                        }, icon: Icon(CupertinoIcons.delete,color: Colors.red)),
+                            ref.read(loadingProvider.notifier).startLoading();
+                            await ref
+                                .read(authProvider.notifier)
+                                .deleteMeal(meal.id!, meal.imageUrl!);
+                            ref.refresh(mealProvider);
+                            ref.read(loadingProvider.notifier).stopLoading();
+                          },
+                          icon: Icon(CupertinoIcons.delete, color: Colors.red),
+                        ),
                       ],
                     ),
                   ),
-                )
+                ),
               ],
             ),
           ),
         ),
-        isLoading ? Center(child: CircularProgressIndicator(),): SizedBox.shrink(),
+        isLoading
+            ? Center(child: CircularProgressIndicator())
+            : SizedBox.shrink(),
       ],
     );
   }

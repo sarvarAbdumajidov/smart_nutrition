@@ -28,4 +28,16 @@ class FilterState {
       isProtein: isProtein ?? this.isProtein,
     );
   }
+  bool get hasActiveFilters =>
+      isVegetarian || isProtein || isKids || isCalorie || isDiabetes;
+
+  List<String> get activeFilters {
+    final filters = <String>[];
+    if (isVegetarian) filters.add('Vegetarian');
+    if (isProtein) filters.add('Protein');
+    if (isKids) filters.add('Kids');
+    if (isCalorie) filters.add('Calorie');
+    if (isDiabetes) filters.add('Diabetes');
+    return filters;
+  }
 }

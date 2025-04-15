@@ -151,6 +151,17 @@ class AuthService extends StateNotifier<User?> {
       LogService.e("Mealni o‘chirishda xatolik: $e");
     }
   }
+
+  // UPDATE MEAL
+  Future<void> updateMeal(Meal meal) async {
+    try {
+      await _firestore.collection('meals').doc(meal.id).update(meal.toMap());
+      LogService.d("Meal yangilandi: ${meal.id}");
+    } catch (e) {
+      LogService.e("Mealni yangilashda xatolik: $e");
+    }
+  }
+
 }
 
 

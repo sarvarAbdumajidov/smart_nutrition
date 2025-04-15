@@ -9,6 +9,13 @@ import '../models/filter_model.dart';
 import '../models/meal_model.dart';
 import '../service/auth_service.dart';
 
+extension SelectedCategoriesNotifierX on SelectedCategoriesNotifier {
+  void setAll(List<String> newList) {
+    state = newList;
+  }
+}
+
+
 final searchQueryProvider = StateProvider<String>((ref) => "");
 final selectedCategoriesProvider = StateNotifierProvider<SelectedCategoriesNotifier,List<String>>((ref) => SelectedCategoriesNotifier());
 final loadingProvider = StateNotifierProvider<LoadingNotifier,bool>((ref) => LoadingNotifier());
@@ -76,7 +83,27 @@ class FilterNotifier extends StateNotifier<FilterState> {
   void toggleKids() => state = state.copyWith(isKids: !state.isKids);
 
   void toggleProtein() => state = state.copyWith(isProtein: !state.isProtein);
+
+  void setAll({
+    required bool isVegetarian,
+    required bool isDiabetes,
+    required bool isCalorie,
+    required bool isKids,
+    required bool isProtein,
+  }) {
+    state = FilterState(
+      isVegetarian: isVegetarian,
+      isDiabetes: isDiabetes,
+      isCalorie: isCalorie,
+      isKids: isKids,
+      isProtein: isProtein,
+    );
+  }
+  void resetFilters() {
+    state = FilterState(); // Yangi boshlang'ich holatga qaytarish
+  }
 }
+
 
 //  IMAGE PICKER
 class ImagePickerNotifier extends StateNotifier<File?> {
@@ -89,6 +116,9 @@ class ImagePickerNotifier extends StateNotifier<File?> {
     if (pickedFile != null) {
       state = File(pickedFile.path);
     }
+  }
+  void clearImage() {
+    state = null;
   }
 }
 // SELECTED CATEGORIES

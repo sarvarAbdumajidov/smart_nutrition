@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:smart_nutrition/pages/meal_detail_page.dart';
-import 'package:smart_nutrition/pages/sign_in_page.dart';
 import '../models/meal_model.dart';
 import '../provider/providers.dart';
 

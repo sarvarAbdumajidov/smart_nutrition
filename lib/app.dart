@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:smart_nutrition/pages/sign_in_page.dart';
+import 'package:smart_nutrition/pages/categories_page.dart';
+
 
 final theme = ThemeData(
   useMaterial3: true,
@@ -17,7 +18,9 @@ class App extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: theme,
-      home: SignInPage(),
+      // home: HomePage(),
+      // home: SignInPage(),
+      home: CategoriesPage(),
     );
   }
 }
