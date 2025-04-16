@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:smart_nutrition/models/meal_model.dart';
 
@@ -26,18 +27,18 @@ class MealDetailPage extends StatelessWidget {
             ),
             SizedBox(height: 10),
             Text(
-              'Ingredients',
+              "str_ingredients".tr(),
               style: TextStyle(fontSize: 23, color: Color(0xFFEE9624)),
             ),
             SizedBox(height: 10),
             Text(
-              meal.ingredients!,
+              meal.ingredients!.tr(),
               style: TextStyle(color: Colors.white, fontSize: 17, height: 1.5),
               textAlign: TextAlign.center,
             ),
             SizedBox(height: 10),
             Text(
-              'Steps',
+              "str_steps".tr(),
               style: TextStyle(fontSize: 23, color: Color(0xFFEE9624)),
             ),
             SizedBox(height: 10),

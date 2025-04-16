@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:smart_nutrition/pages/filter_page.dart';
@@ -16,16 +17,16 @@ class CategoriesPage extends ConsumerStatefulWidget {
 
 class _CategoriesPageState extends ConsumerState<CategoriesPage> {
   final List<String> categoriesList = [
-    'National dishes',
-    "Fast food",
-    "Fruits",
-    "International dishes",
-    "Drinks",
-    "Bread and pastry products",
-    "Salads",
-    "Sweets and desserts",
-    "Greens and vegetable dishes",
-    "For athletes",
+    "str_national_dishes".tr(),
+    "str_fast_food".tr(),
+    "str_fruits".tr(),
+    "str_international_dishes".tr(),
+    "str_drinks".tr(),
+    "str_bread_and_pastry_products".tr(),
+    "str_salads".tr(),
+    "str_sweets_and_desserts".tr(),
+    "str_greens_and_vegetable_dishes".tr(),
+    "str_for_athletes".tr(),
   ];
 
   final List<Color> colors = [
@@ -75,7 +76,7 @@ class _CategoriesPageState extends ConsumerState<CategoriesPage> {
                   ),
                   const SizedBox(width: 18),
                   Text(
-                    'Cooking Up!',
+                    "str_cooking_up".tr(),
                     style: Theme.of(context).textTheme.titleLarge!.copyWith(
                       color: Theme.of(context).colorScheme.primary,
                     ),
@@ -93,7 +94,7 @@ class _CategoriesPageState extends ConsumerState<CategoriesPage> {
                       color: Theme.of(context).colorScheme.onBackground,
                     ),
                     title: Text(
-                      'Meals',
+                      "str_meals".tr(),
                       style: Theme.of(context).textTheme.titleSmall!.copyWith(
                         color: Theme.of(context).colorScheme.onBackground,
                         fontSize: 24,
@@ -110,7 +111,7 @@ class _CategoriesPageState extends ConsumerState<CategoriesPage> {
                       color: Theme.of(context).colorScheme.onBackground,
                     ),
                     title: Text(
-                      'Search meals',
+                      "str_search_meals".tr(),
                       style: Theme.of(context).textTheme.titleSmall!.copyWith(
                         color: Theme.of(context).colorScheme.onBackground,
                         fontSize: 24,
@@ -127,7 +128,7 @@ class _CategoriesPageState extends ConsumerState<CategoriesPage> {
                       color: Theme.of(context).colorScheme.onBackground,
                     ),
                     title: Text(
-                      'Filters',
+                      "str_filters".tr(),
                       style: Theme.of(context).textTheme.titleSmall!.copyWith(
                         color: Theme.of(context).colorScheme.onBackground,
                         fontSize: 24,
@@ -144,7 +145,7 @@ class _CategoriesPageState extends ConsumerState<CategoriesPage> {
                       color: Theme.of(context).colorScheme.onBackground,
                     ),
                     title: Text(
-                      'Settings',
+                      "str_settings".tr(),
                       style: Theme.of(context).textTheme.titleSmall!.copyWith(
                         color: Theme.of(context).colorScheme.onBackground,
                         fontSize: 24,
@@ -168,7 +169,7 @@ class _CategoriesPageState extends ConsumerState<CategoriesPage> {
                 context: context,
                 builder: (BuildContext context) {
                   return AlertDialog(
-                    title: Text('Do you want to log out?'),
+                    title: Text("str_do_you_want_to_log_out".tr()),
                     content: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 20),
                       child: SizedBox(width: double.infinity, height: 1),
@@ -181,7 +182,7 @@ class _CategoriesPageState extends ConsumerState<CategoriesPage> {
                             onPressed: () {
                               Navigator.of(context).pop();
                             },
-                            child: Text('No', style: TextStyle(fontSize: 20)),
+                            child: Text("str_no".tr(), style: TextStyle(fontSize: 20)),
                           ),
                           TextButton(
                             onPressed: () {
@@ -192,7 +193,7 @@ class _CategoriesPageState extends ConsumerState<CategoriesPage> {
                                 ),
                               );
                             },
-                            child: Text('Yes', style: TextStyle(fontSize: 20)),
+                            child: Text("str_yes".tr(), style: TextStyle(fontSize: 20)),
                           ),
                         ],
                       ),
@@ -207,7 +208,7 @@ class _CategoriesPageState extends ConsumerState<CategoriesPage> {
         ],
         elevation: 0,
         centerTitle: true,
-        title: Text('Categories'),
+        title: Text("str_categories".tr()),
       ),
       body: GridView.builder(
         padding: EdgeInsets.all(24),
@@ -244,7 +245,7 @@ class _CategoriesPageState extends ConsumerState<CategoriesPage> {
                 ),
               ),
               child: Text(
-                categoriesList[index],
+                categoriesList[index].tr(),
                 textAlign: TextAlign.center,
                 style: TextStyle(fontSize: 17),
               ),

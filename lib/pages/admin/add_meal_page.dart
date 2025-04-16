@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
@@ -20,16 +21,16 @@ class AddMealPage extends ConsumerStatefulWidget {
 
 class _AddMealPageState extends ConsumerState<AddMealPage> {
   List<String> categoriesList = [
-    'National dishes',
-    "Fast food",
-    "Fruits",
-    "International dishes",
-    "Drinks",
-    "Bread and pastry products",
-    "Salads",
-    "Sweets and desserts",
-    "Greens and vegetable dishes",
-    "For athletes",
+    "str_national_dishes".tr(),
+    "str_fast_food".tr(),
+    "str_fruits".tr(),
+    "str_international_dishes".tr(),
+    "str_drinks".tr(),
+    "str_bread_and_pastry_products".tr(),
+    "str_salads".tr(),
+    "str_sweets_and_desserts".tr(),
+    "str_greens_and_vegetable_dishes".tr(),
+    "str_for_athletes".tr(),
   ];
   List<String> selectedCtg = [];
 
@@ -42,6 +43,7 @@ class _AddMealPageState extends ConsumerState<AddMealPage> {
       });
     }
   }
+
   @override
   void dispose() {
     // Form kontrollerlarini tozalash
@@ -62,9 +64,6 @@ class _AddMealPageState extends ConsumerState<AddMealPage> {
 
     super.dispose();
   }
-
-
-
 
   void _initializeFormWithMealData(Meal meal) {
     ref.read(titleControllerProvider).text = meal.title ?? '';
@@ -92,7 +91,7 @@ class _AddMealPageState extends ConsumerState<AddMealPage> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text("Select Categories"),
+          title:  Text("str_select_categories".tr()),
           content: Consumer(
             builder: (context, ref, child) {
               final selectedCategories = ref.watch(selectedCategoriesProvider);
@@ -103,6 +102,7 @@ class _AddMealPageState extends ConsumerState<AddMealPage> {
               return SizedBox(
                 width: 400,
                 height: 400,
+
                 child: ListView.builder(
                   shrinkWrap: true,
                   itemCount: categoriesList.length,
@@ -111,9 +111,10 @@ class _AddMealPageState extends ConsumerState<AddMealPage> {
                     final isSelected = selectedCategories.contains(category);
 
                     return CheckboxListTile(
-                      title: Text(category),
+                      title: Text(category.tr()),
                       value: isSelected,
-                      activeColor: Colors.primaries[index % Colors.primaries.length],
+                      activeColor:
+                          Colors.primaries[index % Colors.primaries.length],
                       onChanged: (_) {
                         selectedCategoriesNotifier.toggleCategory(category);
                       },
@@ -129,14 +130,15 @@ class _AddMealPageState extends ConsumerState<AddMealPage> {
                 ref.refresh(selectedCategoriesProvider);
                 Navigator.pop(context);
               },
-              child: const Text("Cancel"),
+              child:  Text(  "str_cancel".tr()),
             ),
             ElevatedButton(
               onPressed: () {
-                selectedCtg = ref.read(selectedCategoriesProvider.notifier).selectedList;
+                selectedCtg =
+                    ref.read(selectedCategoriesProvider.notifier).selectedList;
                 Navigator.pop(context);
               },
-              child: const Text("Select"),
+              child:  Text("Select".tr()),
             ),
           ],
         );
@@ -145,8 +147,6 @@ class _AddMealPageState extends ConsumerState<AddMealPage> {
   }
 
   void _handleSubmit(BuildContext context) async {
-
-
     if (!_validateForm()) return;
 
     ref.read(loadingProvider.notifier).startLoading();
@@ -165,10 +165,11 @@ class _AddMealPageState extends ConsumerState<AddMealPage> {
         await _addNewMeal(meal);
       }
 
-
       _showSuccessMessage();
       _resetAndNavigateBack();
-     Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => HomePage()));
+      Navigator.of(
+        context,
+      ).pushReplacement(MaterialPageRoute(builder: (context) => HomePage()));
     } catch (e) {
       _showErrorMessage(e);
     } finally {
@@ -177,30 +178,21 @@ class _AddMealPageState extends ConsumerState<AddMealPage> {
   }
 
   void _resetAndNavigateBack() {
+    ref.read(titleControllerProvider).clear();
+    ref.read(timeControllerProvider).clear();
+    ref.read(ingredientsControllerProvider).clear();
+    ref.read(stepsControllerProvider).clear();
 
-      ref.read(titleControllerProvider).clear();
-      ref.read(timeControllerProvider).clear();
-      ref.read(ingredientsControllerProvider).clear();
-      ref.read(stepsControllerProvider).clear();
+    // Filterlarni tozalash
+    final filterNotifier = ref.read(filterProvider.notifier);
+    filterNotifier.resetFilters();
 
+    // Image file ni tozalash
+    ref.read(imagePickerProvider.notifier).clearImage();
 
-      // Filterlarni tozalash
-      final filterNotifier = ref.read(filterProvider.notifier);
-      filterNotifier.resetFilters();
-
-      // Image file ni tozalash
-      ref.read(imagePickerProvider.notifier).clearImage();
-
-      // Kategoriyalarni tozalash
-      ref.read(selectedCategoriesProvider.notifier).clearCategory();
-
-
-
+    // Kategoriyalarni tozalash
+    ref.read(selectedCategoriesProvider.notifier).clearCategory();
   }
-
-
-
-
 
   bool _validateForm() {
     final title = ref.read(titleControllerProvider).text;
@@ -209,32 +201,32 @@ class _AddMealPageState extends ConsumerState<AddMealPage> {
     final steps = ref.read(stepsControllerProvider).text;
 
     if (title.isEmpty) {
-      _showValidationError('Please enter meal title');
+      _showValidationError("str_please_enter_meal_title".tr());
       return false;
     }
     if (time.isEmpty || int.tryParse(time) == null) {
-      _showValidationError('Please enter valid cooking time');
+      _showValidationError("str_please_enter_valid_cooking_time".tr());
       return false;
     }
     if (ingredient.isEmpty) {
-      _showValidationError('Please enter ingredients');
+      _showValidationError("str_please_enter_ingredients".tr());
       return false;
     }
     if (steps.isEmpty) {
-      _showValidationError('Please enter cooking steps');
+      _showValidationError("str_please_enter_cooking_steps".tr());
       return false;
     }
     if (selectedCtg.isEmpty) {
-      _showValidationError('Please select at least one category');
+      _showValidationError("str_please_select_at_least_one_category".tr());
       return false;
     }
     return true;
   }
 
   void _showValidationError(String message) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text(message)),
-    );
+    ScaffoldMessenger.of(
+      context,
+    ).showSnackBar(SnackBar(content: Text(message.tr())));
   }
 
   Future<String?> _handleImageUpload() async {
@@ -277,7 +269,10 @@ class _AddMealPageState extends ConsumerState<AddMealPage> {
   void _showSuccessMessage() {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: Text(widget.isEditing ? 'Meal updated!' : 'Meal added!',style: TextStyle(color: Colors.white,letterSpacing: 3.0),),
+        content: Text(
+          widget.isEditing ? "str_meal_updated".tr() : "str_meal_added".tr(),
+          style: TextStyle(color: Colors.white, letterSpacing: 3.0),
+        ),
         backgroundColor: Colors.blue,
       ),
     );
@@ -286,13 +281,11 @@ class _AddMealPageState extends ConsumerState<AddMealPage> {
   void _showErrorMessage(dynamic error) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: Text('Error: ${error.toString()}'),
+        content: Text("str_error".tr()),
         backgroundColor: Colors.red,
       ),
     );
   }
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -304,7 +297,7 @@ class _AddMealPageState extends ConsumerState<AddMealPage> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
-        title: Text(widget.isEditing ? 'Edit Meal' : 'Add Meal'),
+        title: Text(widget.isEditing ? "str_edit_meal".tr() : "str_add_meal".tr()),
         leading: BackButton(
           onPressed: () {
             _resetAndNavigateBack();
@@ -314,20 +307,20 @@ class _AddMealPageState extends ConsumerState<AddMealPage> {
       ),
       body: SingleChildScrollView(
         child: Padding(
-            padding: const EdgeInsets.all(20),
-            child: Stack(
-                alignment: Alignment.center,
+          padding: const EdgeInsets.all(20),
+          child: Stack(
+            alignment: Alignment.center,
+            children: [
+              Column(
                 children: [
-                Column(
-                children: [
-                // Image Section
-                _buildImageSection(imageFile),
-            const SizedBox(height: 20),
+                  // Image Section
+                  _buildImageSection(imageFile),
+                  const SizedBox(height: 20),
 
                   // Form Fields
-                  _buildTextField(ref.watch(titleControllerProvider),),
+                  _buildTextField(ref.watch(titleControllerProvider)),
                   const SizedBox(height: 10),
-                  _buildTextField(ref.watch(timeControllerProvider),),
+                  _buildTextField(ref.watch(timeControllerProvider)),
                   const SizedBox(height: 10),
                   _buildTextField(ref.watch(ingredientsControllerProvider)),
                   const SizedBox(height: 10),
@@ -339,21 +332,20 @@ class _AddMealPageState extends ConsumerState<AddMealPage> {
                   const SizedBox(height: 20),
 
                   // Filters Section
-                  const Text('Filters', style: TextStyle(fontSize: 25)),
+                   Text("str_filters".tr(), style: TextStyle(fontSize: 25)),
                   const SizedBox(height: 20),
                   _buildFilterSwitches(filterState, filterNotifier),
                   const SizedBox(height: 25),
 
                   // Submit Button
                   _buildSubmitButton(),
-
-                  ],
-                ),
-                if (isLoading) const CircularProgressIndicator(),
-        ],
+                ],
+              ),
+              if (isLoading) const CircularProgressIndicator(),
+            ],
+          ),
+        ),
       ),
-    ),
-    ),
     );
   }
 
@@ -363,14 +355,18 @@ class _AddMealPageState extends ConsumerState<AddMealPage> {
       height: 250,
       child: InkWell(
         borderRadius: BorderRadius.circular(15),
-        onTap: () => ref.read(imagePickerProvider.notifier).pickImage(ImageSource.gallery),
+        onTap:
+            () => ref
+                .read(imagePickerProvider.notifier)
+                .pickImage(ImageSource.gallery),
         child: Card(
           clipBehavior: Clip.antiAlias,
-          child: imageFile != null
-              ? Image.file(imageFile, fit: BoxFit.cover)
-              : (widget.meal?.imageUrl != null
-              ? Image.network(widget.meal!.imageUrl!, fit: BoxFit.cover)
-              : const Icon(Icons.add, size: 80)),
+          child:
+              imageFile != null
+                  ? Image.file(imageFile, fit: BoxFit.cover)
+                  : (widget.meal?.imageUrl != null
+                      ? Image.network(widget.meal!.imageUrl!, fit: BoxFit.cover)
+                      : const Icon(Icons.add, size: 80)),
         ),
       ),
     );
@@ -383,7 +379,7 @@ class _AddMealPageState extends ConsumerState<AddMealPage> {
         controller: controller,
         style: const TextStyle(color: Colors.white),
         decoration: InputDecoration(
-          hintText: _getHintText(controller),
+          hintText: _getHintText(controller).tr(),
           border: const OutlineInputBorder(),
         ),
       ),
@@ -391,10 +387,14 @@ class _AddMealPageState extends ConsumerState<AddMealPage> {
   }
 
   String _getHintText(TextEditingController controller) {
-    if (controller == ref.read(titleControllerProvider)) return "Title";
-    if (controller == ref.read(timeControllerProvider)) return "Cooking time (minutes)";
-    if (controller == ref.read(ingredientsControllerProvider)) return "Ingredients";
-    if (controller == ref.read(stepsControllerProvider)) return "Steps";
+    if (controller == ref.read(titleControllerProvider)) return "str_title".tr();
+    if (controller == ref.read(timeControllerProvider)) {
+      return "str_cooking_time".tr();
+    }
+    if (controller == ref.read(ingredientsControllerProvider)) {
+      return "str_ingredients".tr();
+    }
+    if (controller == ref.read(stepsControllerProvider)) return "str_steps".tr();
     return "";
   }
 
@@ -407,7 +407,7 @@ class _AddMealPageState extends ConsumerState<AddMealPage> {
         child: MaterialButton(
           color: const Color(0xFF3E9FBD),
           onPressed: () => _showCategoryDialog(context),
-          child: const Text('Select Categories'),
+          child:  Text("str_select_categories".tr().tr()),
         ),
       ),
     );
@@ -417,27 +417,27 @@ class _AddMealPageState extends ConsumerState<AddMealPage> {
     return Column(
       children: [
         _buildSwitch(
-          title: 'Vegetarian',
+          title: "str_vegetarian".tr(),
           value: state.isVegetarian,
           onChanged: (_) => notifier.toggleVegetarian(),
         ),
         _buildSwitch(
-          title: 'Diabetes',
+          title: "str_diabetes".tr(),
           value: state.isDiabetes,
           onChanged: (_) => notifier.toggleDiabetes(),
         ),
         _buildSwitch(
-          title: 'Calorie',
+          title: "str_calorie".tr(),
           value: state.isCalorie,
           onChanged: (_) => notifier.toggleCalorie(),
         ),
         _buildSwitch(
-          title: 'Kids',
+          title: "str_kids".tr(),
           value: state.isKids,
           onChanged: (_) => notifier.toggleKids(),
         ),
         _buildSwitch(
-          title: 'Protein',
+          title: "str_protein".tr(),
           value: state.isProtein,
           onChanged: (_) => notifier.toggleProtein(),
         ),
@@ -453,11 +453,11 @@ class _AddMealPageState extends ConsumerState<AddMealPage> {
         borderRadius: BorderRadius.circular(7),
         child: MaterialButton(
           color: const Color(0xFFBD883E),
-          onPressed: (){
+          onPressed: () {
             final currentContext = context;
             _handleSubmit(currentContext);
           },
-          child: Text(widget.isEditing ? 'Update Meal' : 'Add Meal'),
+          child: Text(widget.isEditing ? "str_update_meal".tr() : "str_add_meal".tr()),
         ),
       ),
     );
@@ -470,8 +470,12 @@ class _AddMealPageState extends ConsumerState<AddMealPage> {
   }) {
     return SwitchListTile(
       title: Text(
-        title,
-        style: const TextStyle(color: Colors.white, fontSize: 20, letterSpacing: 3),
+        title.tr(),
+        style: const TextStyle(
+          color: Colors.white,
+          fontSize: 20,
+          letterSpacing: 3,
+        ),
       ),
       value: value,
       onChanged: onChanged,

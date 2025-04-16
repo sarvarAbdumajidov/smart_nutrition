@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -81,7 +82,7 @@ class _HomePageState extends ConsumerState<HomePage> {
               context: context,
               builder: (BuildContext context) {
                 return AlertDialog(
-                  title: Text('Do you want to log out?'),
+                  title: Text("str_do_you_want_to_log_out".tr()),
                   content: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 20),
                     child: SizedBox(width: double.infinity, height: 1),
@@ -94,14 +95,14 @@ class _HomePageState extends ConsumerState<HomePage> {
                           onPressed: () {
                             Navigator.of(context).pop();
                           },
-                          child: Text('No', style: TextStyle(fontSize: 20)),
+                          child: Text("str_no".tr(), style: TextStyle(fontSize: 20)),
                         ),
                         TextButton(
                           onPressed: () {
                             ref.read(searchQueryProvider.notifier).state = "";
                             Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => SignInPage()));
                           },
-                          child: Text('Yes', style: TextStyle(fontSize: 20)),
+                          child: Text("str_yes".tr(), style: TextStyle(fontSize: 20)),
                         ),
                       ],
                     ),
@@ -127,7 +128,7 @@ class _HomePageState extends ConsumerState<HomePage> {
 
 
             if (filteredMeals.isEmpty) {
-              return Center(child: Text('No food available'));
+              return Center(child: Text("str_no_food_available".tr()));
             }
 
             return ListView.builder(
@@ -144,7 +145,7 @@ class _HomePageState extends ConsumerState<HomePage> {
               },
             );
           },
-          error: (error, stackTrace) => Center(child: Text('Xatolik: $error')),
+          error: (error, stackTrace) => Center(child: Text('Error: $error'.tr())),
           loading: () => Center(child: LinearProgressIndicator()),
         ),
         onRefresh: () async {

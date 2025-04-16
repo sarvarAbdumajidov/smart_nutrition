@@ -15,10 +15,17 @@ extension SelectedCategoriesNotifierX on SelectedCategoriesNotifier {
   }
 }
 
+final localeProvider = StateProvider<Locale>((ref) {
+  return  Locale('uz', 'UZ');
+});
+
 
 final searchQueryProvider = StateProvider<String>((ref) => "");
+
 final selectedCategoriesProvider = StateNotifierProvider<SelectedCategoriesNotifier,List<String>>((ref) => SelectedCategoriesNotifier());
+
 final loadingProvider = StateNotifierProvider<LoadingNotifier,bool>((ref) => LoadingNotifier());
+
 final authProvider = StateNotifierProvider<AuthService, User?>((ref) {
   return AuthService();
 });
@@ -32,13 +39,16 @@ final titleControllerProvider =
     StateProvider.autoDispose<TextEditingController>(
       (ref) => TextEditingController(),
     );
+
 final timeControllerProvider = StateProvider.autoDispose<TextEditingController>(
   (ref) => TextEditingController(),
 );
+
 final ingredientsControllerProvider =
     StateProvider.autoDispose<TextEditingController>(
       (ref) => TextEditingController(),
     );
+
 final stepsControllerProvider =
     StateProvider.autoDispose<TextEditingController>(
       (ref) => TextEditingController(),
@@ -48,14 +58,17 @@ final emailControllerProvider =
     StateProvider.autoDispose<TextEditingController>(
       (ref) => TextEditingController(),
     );
+
 final passwordControllerProvider =
     StateProvider.autoDispose<TextEditingController>(
       (ref) => TextEditingController(),
     );
+
 final confirmPasswordControllerProvider =
     StateProvider.autoDispose<TextEditingController>(
       (ref) => TextEditingController(),
     );
+
 final imagePickerProvider = StateNotifierProvider<ImagePickerNotifier, File?>((
   ref,
 ) {
@@ -121,6 +134,7 @@ class ImagePickerNotifier extends StateNotifier<File?> {
     state = null;
   }
 }
+
 // SELECTED CATEGORIES
 class SelectedCategoriesNotifier extends StateNotifier<List<String>> {
   SelectedCategoriesNotifier() : super([]);

@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -19,7 +20,7 @@ class MealsPage extends ConsumerWidget {
       body: mealData.when(
         data: (meals) {
           if (meals.isEmpty) {
-            return Center(child: Text('Hech qanday taom mavjud emas'));
+            return Center(child: Text("str_no_food_available".tr()));
           }
           return ListView.builder(
             itemCount: meals.length,
@@ -28,7 +29,7 @@ class MealsPage extends ConsumerWidget {
             },
           );
         },
-        error: (error, stackTrace) => Center(child: Text('Xatolik: $error')),
+        error: (error, stackTrace) => Center(child: Text('Error: $error')),
         loading: () => Center(child: LinearProgressIndicator()),
       ),
     );
@@ -77,9 +78,10 @@ class MealsPage extends ConsumerWidget {
                           Icon(CupertinoIcons.clock, size: 15),
                           SizedBox(width: 10),
                           Text(
-                            '${meal.duration} min',
+                            'duration_minutes'.tr(args: ['${meal.duration}']),
                             style: TextStyle(fontSize: 13),
                           ),
+
                         ],
                       ),
                     ],

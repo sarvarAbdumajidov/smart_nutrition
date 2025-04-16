@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../models/meal_model.dart';
@@ -61,7 +62,7 @@ class _SearchMealsPageState extends ConsumerState<SearchMealsPage> {
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             Text(
-                              'Search Options',
+                              "str_search_options".tr(),
                               style: TextStyle(
                                 fontSize: 20,
                                 fontWeight: FontWeight.bold,
@@ -69,7 +70,7 @@ class _SearchMealsPageState extends ConsumerState<SearchMealsPage> {
                             ),
                             Divider(),
                             CheckboxListTile(
-                              title: Text('Search by Title'),
+                              title: Text("str_search_by_title".tr()),
                               value: searchByTitle,
                               onChanged: (value) {
                                 setState(() {
@@ -78,7 +79,7 @@ class _SearchMealsPageState extends ConsumerState<SearchMealsPage> {
                               },
                             ),
                             CheckboxListTile(
-                              title: Text('Search by Ingredients'),
+                              title: Text("str_search_by_ingredients".tr()),
                               value: searchByIngredients,
                               onChanged: (value) {
                                 setState(() {
@@ -88,7 +89,7 @@ class _SearchMealsPageState extends ConsumerState<SearchMealsPage> {
                             ),
                             SizedBox(height: 16),
                             ElevatedButton(
-                              child: Text('Apply'),
+                              child: Text("str_apply".tr()),
                               onPressed: () {
                                 Navigator.pop(context);
                                 setState(() {});
@@ -113,12 +114,12 @@ class _SearchMealsPageState extends ConsumerState<SearchMealsPage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    'Search for a meal',
+                    "str_search_for_meals".tr(),
                     style: TextStyle(fontSize: 25),
                   ),
                   SizedBox(height: 10),
                   Text(
-                    'Filter options available in top-right corner',
+                    "str_filter_option_available_in_top_right_corner".tr(),
                     style: TextStyle(fontSize: 16, color: Colors.grey),
                   ),
                 ],
@@ -186,7 +187,7 @@ class _SearchMealsPageState extends ConsumerState<SearchMealsPage> {
           if (filteredMeals.isEmpty) {
             return Center(
               child: Text(
-                'No results for "$searchQuery"',
+                "str_no_results_for".tr(args: [searchQuery]),
                 style: TextStyle(fontSize: 25),
               ),
             );

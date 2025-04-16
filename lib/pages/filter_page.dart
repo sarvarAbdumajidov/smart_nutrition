@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -21,7 +22,8 @@ class FilterPage extends ConsumerWidget {
           },
         ),
         centerTitle: true,
-        title: Text('Filters',style: TextStyle(fontSize: 25),),
+        title: Text( "Filters"
+        ,style: TextStyle(fontSize: 25),),
       ),
       body: Padding(
         padding: const EdgeInsets.only(top:40),
@@ -33,27 +35,27 @@ class FilterPage extends ConsumerWidget {
     return Column(
       children: [
         _buildSwitch(
-          title: 'Vegetarian',
+          title: 'Vegetarian'.tr(),
           value: state.isVegetarian,
           onChanged: (_) => notifier.toggleVegetarian(),
         ),
         _buildSwitch(
-          title: 'Diabetes',
+          title: 'Diabetes'.tr(),
           value: state.isDiabetes,
           onChanged: (_) => notifier.toggleDiabetes(),
         ),
         _buildSwitch(
-          title: 'Calorie',
+          title: 'Calorie'.tr(),
           value: state.isCalorie,
           onChanged: (_) => notifier.toggleCalorie(),
         ),
         _buildSwitch(
-          title: 'Kids',
+          title: 'Kids'.tr(),
           value: state.isKids,
           onChanged: (_) => notifier.toggleKids(),
         ),
         _buildSwitch(
-          title: 'Protein',
+          title: 'Protein'.tr(),
           value: state.isProtein,
           onChanged: (_) => notifier.toggleProtein(),
         ),

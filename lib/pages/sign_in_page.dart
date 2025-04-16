@@ -1,11 +1,12 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:smart_nutrition/pages/admin/home_page.dart';
 import 'package:smart_nutrition/pages/categories_page.dart';
 import 'package:smart_nutrition/pages/sign_up_page.dart';
 import 'package:smart_nutrition/provider/providers.dart';
-import 'package:smart_nutrition/service/auth_service.dart';
 
+import 'forgot_password_page.dart';
 class SignInPage extends ConsumerWidget {
   const SignInPage({super.key});
 
@@ -19,13 +20,19 @@ class SignInPage extends ConsumerWidget {
     if (email.isEmpty || password.isEmpty) {
       ScaffoldMessenger.of(
         context,
-      ).showSnackBar(SnackBar(content: Text('Fill in the blank')));
+      ).showSnackBar(SnackBar(content: Text("str_fill_in_the_blank".tr())));
       return;
     }
     final user = await auth.signInUser(
       emailController.text.trim(),
       passwordController.text.trim(),
     );
+
+    bool emailVerified = await auth.checkEmailVerified();
+    if(!emailVerified){
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("str_email_not_verified".tr())));
+      return;
+    }
 
     if (user != null) {
       ref.read(loadingProvider.notifier).startLoading();
@@ -39,7 +46,7 @@ class SignInPage extends ConsumerWidget {
       }
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text("Incorrect login or password!")),
+         SnackBar(content: Text("str_incorrect_login_or_password".tr())),
       );
     }
   }
@@ -59,7 +66,7 @@ class SignInPage extends ConsumerWidget {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text('Welcome', style: TextStyle(fontSize: 40)),
+                    Text("str_welcome".tr(), style: TextStyle(fontSize: 40)),
                     const SizedBox(height: 40),
 
                     // EMAIL
@@ -69,7 +76,7 @@ class SignInPage extends ConsumerWidget {
                         controller: emailController,
                         style: TextStyle(color: Colors.white),
                         keyboardType: TextInputType.emailAddress,
-                        decoration: InputDecoration(hintText: 'Email'),
+                        decoration: InputDecoration(hintText: "str_email".tr()),
                       ),
                     ),
                     const SizedBox(height: 20),
@@ -82,7 +89,7 @@ class SignInPage extends ConsumerWidget {
                         controller: passwordController,
                         style: TextStyle(color: Colors.white),
                         keyboardType: TextInputType.visiblePassword,
-                        decoration: InputDecoration(hintText: 'Password'),
+                        decoration: InputDecoration(hintText: "str_password".tr()),
                       ),
                     ),
                     const SizedBox(height: 40),
@@ -98,7 +105,7 @@ class SignInPage extends ConsumerWidget {
                           _signIn(context, ref);
 
                         },
-                        child: Text('Sign In'),
+                        child: Text("str_sign_in".tr()),
                       ),
                     ),
                     const SizedBox(height: 20),
@@ -106,7 +113,7 @@ class SignInPage extends ConsumerWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
-                        Text('Don\'t have an account?'),
+                        Text("str_dont_have_account".tr()),
                         const SizedBox(width: 5),
                         TextButton(
                           onPressed: () {
@@ -116,16 +123,29 @@ class SignInPage extends ConsumerWidget {
                               MaterialPageRoute(builder: (context) => SignUpPage()),
                             );
                           },
-                          child: Text('Sign Up'),
+                          child: Text("str_sign_up".tr()),
                         ),
                       ],
                     ),
+
+                    TextButton(
+                      onPressed: (){
+                        Navigator.of(context).push(MaterialPageRoute(builder: (context) => ForgotPasswordPage()));
+                      },
+                      child: Text("str_forgot_password".tr()),
+                    )
                   ],
                 ),
               ),
             ),
           ),
-          isLoading ? Center(child: CircularProgressIndicator(),) : SizedBox.shrink(),
+          if (isLoading)
+            Container(
+              color: Colors.black.withOpacity(0.5),
+              child: Center(
+                child: CircularProgressIndicator(),
+              ),
+            ),
         ],
       ),
     );

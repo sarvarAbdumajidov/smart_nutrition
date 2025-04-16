@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:smart_nutrition/models/meal_model.dart';
@@ -32,9 +33,16 @@ class AuthService extends StateNotifier<User?> {
       state = _auth.currentUser;
       return state;
     } catch (e) {
-      LogService.e('Bunday foydalanuvchi mavjud emas!!');
+      LogService.e('This user does not exist!!  ');
       return null;
     }
+  }
+
+  // CHECK EMAIL
+  Future<bool> checkEmailVerified() async {
+    User? user = FirebaseAuth.instance.currentUser;
+    await user?.reload();
+    return user?.emailVerified ?? false;
   }
 
   // SIGN UP
@@ -47,17 +55,70 @@ class AuthService extends StateNotifier<User?> {
       User? user = authResult.user;
 
       if (user != null) {
+        // Firebase'da users collectionga qo'shamiz
         await _firestore.collection("users").doc(user.uid).set({
           "uid": user.uid,
           "email": user.email,
-          "role": "user", // Default user sifatida saqlanadi
+          "role": "user", // Default role
         });
+
+        // Emailga verification link yuborish
+        await user.sendEmailVerification();
+
+        // Email yuborilganini tasdiqlovchi log qo'shamiz
+        print("Verification email sent to: ${user.email}");
+
+        return user;
+      } else {
+        return null;
       }
-      state = user;
-      return user;
     } catch (e) {
-      LogService.e('Sign Up da xatolik');
+      // Xatolikni logga yozamiz
+      LogService.e("Sign Up failed: $e");
       return null;
+    }
+  }
+
+
+
+
+
+  // UPDATE PASSWORD
+  Future<String?> changePassword(String newPassword) async {
+    try {
+      await _auth.currentUser!.updatePassword(newPassword);
+      return null;
+    } on FirebaseAuthException catch (e) {
+      LogService.e(e.toString());
+      return e.message;
+    }
+  }
+
+  // RESET EMAIL
+  Future<String?> sendPasswordResetEmail(String email) async {
+    try {
+      await _auth.sendPasswordResetEmail(email: email);
+      return null;
+    } on FirebaseAuthException catch (e) {
+      LogService.e(e.toString());
+      return e.message;
+    }
+  }
+
+  // EMAIL VERIFICATION
+  Future<String?> sendEmailVerification() async {
+    try {
+      final user = _auth.currentUser;
+      if (user != null && !user.emailVerified) {
+        await user.sendEmailVerification();
+        LogService.d("Email verification link yuborildi");
+        return null;
+      } else {
+        return "Email already confirmed".tr();
+      }
+    } catch (e) {
+      LogService.e("Email verificationda xatolik: $e");
+      return "An error occurred during email verification.".tr();
     }
   }
 

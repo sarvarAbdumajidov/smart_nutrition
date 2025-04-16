@@ -1,5 +1,7 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:smart_nutrition/pages/categories_page.dart';
+import 'package:smart_nutrition/pages/sign_in_page.dart';
+
 
 
 final theme = ThemeData(
@@ -18,9 +20,12 @@ class App extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: theme,
-      // home: HomePage(),
-      // home: SignInPage(),
-      home: CategoriesPage(),
+      title: "Smart Nutrition",
+      locale: context.locale, // faqat shu yetarli!
+      supportedLocales: context.supportedLocales,
+      localizationsDelegates: context.localizationDelegates,
+      home: const SignInPage(),
     );
   }
 }
+
