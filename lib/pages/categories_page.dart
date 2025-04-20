@@ -8,6 +8,8 @@ import 'package:smart_nutrition/pages/settings_page.dart';
 import 'package:smart_nutrition/pages/sign_in_page.dart';
 import 'package:smart_nutrition/provider/providers.dart';
 
+import '../service/hive_service.dart';
+
 class CategoriesPage extends ConsumerStatefulWidget {
   const CategoriesPage({super.key});
 
@@ -189,6 +191,8 @@ class _CategoriesPageState extends ConsumerState<CategoriesPage> {
                           ),
                           TextButton(
                             onPressed: () async{
+                              final hiveService = HiveService();
+                              hiveService.setLoginStatus(false);
                               final filterNotifier = ref.read(filterProvider.notifier);
                               filterNotifier.resetFilters();
                              await auth.signOut(context);

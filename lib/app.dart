@@ -1,6 +1,8 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:smart_nutrition/pages/categories_page.dart';
 import 'package:smart_nutrition/pages/sign_in_page.dart';
+import 'package:smart_nutrition/service/hive_service.dart';
 
 
 
@@ -17,6 +19,8 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final hiveService = HiveService();
+    bool nextPage = hiveService.isLoggedIn;
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: theme,
@@ -24,7 +28,7 @@ class App extends StatelessWidget {
       locale: context.locale, // faqat shu yetarli!
       supportedLocales: context.supportedLocales,
       localizationsDelegates: context.localizationDelegates,
-      home: const SignInPage(),
+      home: nextPage ? CategoriesPage() : SignInPage(),
     );
   }
 }

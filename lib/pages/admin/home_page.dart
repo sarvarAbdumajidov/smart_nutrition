@@ -7,6 +7,7 @@ import 'package:smart_nutrition/pages/admin/add_meal_page.dart';
 import 'package:smart_nutrition/pages/sign_in_page.dart';
 import '../../models/meal_model.dart';
 import '../../provider/providers.dart';
+import '../../service/hive_service.dart';
 
 class HomePage extends ConsumerStatefulWidget {
   const HomePage({super.key});
@@ -99,6 +100,8 @@ class _HomePageState extends ConsumerState<HomePage> {
                         ),
                         TextButton(
                           onPressed: () async{
+                            final hiveService = HiveService();
+                            hiveService.setLoginStatus(false);
                             ref.read(searchQueryProvider.notifier).state = "";
                             await auth.signOut(context);
                           },
