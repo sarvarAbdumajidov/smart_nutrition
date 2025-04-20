@@ -148,28 +148,7 @@ class _SearchMealsPageState extends ConsumerState<SearchMealsPage> {
             if (activeFilters.isEmpty) return matchesSearch;
 
             // Agar faqat bitta filter tanlangan bo'lsa
-            if (activeFilters.length == 1) {
-              final filterType = activeFilters[0];
-              switch (filterType) {
-                case 'Vegetarian':
-                  return matchesSearch &&
-                      (meal.isVegetarian ?? false) &&
-                      !(meal.isProtein ?? false) &&
-                      !(meal.isKids ?? false) &&
-                      !(meal.isCalorie ?? false) &&
-                      !(meal.isDiabetes ?? false);
-                case 'Protein':
-                  return matchesSearch &&
-                      !(meal.isVegetarian ?? false) &&
-                      (meal.isProtein ?? false) &&
-                      !(meal.isKids ?? false) &&
-                      !(meal.isCalorie ?? false) &&
-                      !(meal.isDiabetes ?? false);
-              // Boshqa filtrlar uchun ham shunday
-                default:
-                  return matchesSearch;
-              }
-            }
+
 
             // Agar bir nechta filter tanlangan bo'lsa (AND sharti)
             bool matchesAllFilters = true;

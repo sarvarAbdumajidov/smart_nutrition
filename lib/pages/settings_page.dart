@@ -3,12 +3,10 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../provider/providers.dart';
 import '../service/auth_service.dart';
 
-
 final authServiceProvider = StateNotifierProvider<AuthService, User?>(
-      (ref) => AuthService(),
+  (ref) => AuthService(),
 );
 
 class SettingsPage extends ConsumerStatefulWidget {
@@ -29,9 +27,9 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
 
     if (newPass != confirmPass) {
       Navigator.of(context).pop();
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text("str_password_do_not_match".tr())),
-      );
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text("str_password_do_not_match".tr())));
       return;
     }
 
@@ -46,22 +44,15 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
         SnackBar(content: Text("str_password_updated_successfully".tr())),
       );
     } else {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text("Error: $result".tr())),
-      );
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text("Error: $result".tr())));
     }
 
     oldPassController.clear();
     newPassController.clear();
     confirmPassController.clear();
   }
-
-
-
-
-
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -118,7 +109,10 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
                                 SizedBox(height: 20),
                                 ElevatedButton(
                                   onPressed: _changePassword,
-                                  child: Text("str_change_password".tr(), style: TextStyle(fontSize: 22)),
+                                  child: Text(
+                                    "str_change_password".tr(),
+                                    style: TextStyle(fontSize: 22),
+                                  ),
                                 ),
                               ],
                             ),
@@ -127,7 +121,10 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
                       },
                     );
                   },
-                  child: Text("str_change_password".tr(), style: TextStyle(fontSize: 22)),
+                  child: Text(
+                    "str_change_password".tr(),
+                    style: TextStyle(fontSize: 22),
+                  ),
                 ),
               ),
 
@@ -145,31 +142,49 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
                           title: Text('str_change_language'.tr()),
                           content: SizedBox(
                             width: 400,
-                            height: 280,
+                            height: 180,
                             child: Column(
                               children: [
                                 ListTile(
-                                  leading: CountryFlag.fromLanguageCode('en',width: 40,height: 25,),
-                                  title: Text('English'),
+                                  leading: CountryFlag.fromLanguageCode(
+                                    'en',
+                                    width: 40,
+                                    height: 25,
+                                  ),
+                                  title: Text("str_english".tr()),
                                   onTap: () {
-                                    context.setLocale(Locale('en', 'US'));
-                                    Navigator.pop(context);
+                                    setState(() {
+                                      context.setLocale(Locale('en', 'US'));
+                                      Navigator.pop(context);
+                                    });
                                   },
                                 ),
                                 ListTile(
-                                  leading: CountryFlag.fromLanguageCode('ru',width: 40,height: 25,),
-                                  title: Text('Русский'),
+                                  leading: CountryFlag.fromLanguageCode(
+                                    'ru',
+                                    width: 40,
+                                    height: 25,
+                                  ),
+                                  title: Text("str_russian".tr()),
                                   onTap: () {
-                                    context.setLocale(Locale('ru', 'RU'));
-                                    Navigator.pop(context);
+                                   setState(() {
+                                     context.setLocale(Locale('ru', 'RU'));
+                                     Navigator.pop(context);
+                                   });
                                   },
                                 ),
                                 ListTile(
-                                  leading: CountryFlag.fromLanguageCode('uz',width: 40,height: 25),
-                                  title: Text('O‘zbekcha'),
+                                  leading: CountryFlag.fromLanguageCode(
+                                    'uz',
+                                    width: 40,
+                                    height: 25,
+                                  ),
+                                  title: Text("str_uzbek".tr()),
                                   onTap: () {
-                                    context.setLocale(Locale('uz', 'UZ'));
-                                    Navigator.pop(context);
+                                   setState(() {
+                                     context.setLocale(Locale('uz', 'UZ'));
+                                     Navigator.pop(context);
+                                   });
                                   },
                                 ),
                               ],
@@ -178,9 +193,11 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
                         );
                       },
                     );
-
                   },
-                  child: Text("str_change_password".tr(), style: TextStyle(fontSize: 22)),
+                  child: Text(
+                    "str_change_language".tr(),
+                    style: TextStyle(fontSize: 22),
+                  ),
                 ),
               ),
             ],

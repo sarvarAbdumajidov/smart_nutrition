@@ -35,11 +35,13 @@ class SignInPage extends ConsumerWidget {
     }
 
     if (user != null) {
+      FocusScope.of(context).unfocus();
       ref.read(loadingProvider.notifier).startLoading();
       String? role = await auth.getUserRole();
       ref.read(loadingProvider.notifier).stopLoading();
       ref.read(emailControllerProvider).clear();
       ref.read(passwordControllerProvider).clear();
+
       switch(role){
         case 'user' : Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => CategoriesPage()));
         case 'admin' : Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => HomePage()));

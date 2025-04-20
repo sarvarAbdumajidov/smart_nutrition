@@ -3,9 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:smart_nutrition/provider/providers.dart';
 
-class SignUpPage extends ConsumerWidget {
+class SignUpPage extends ConsumerStatefulWidget  {
   const SignUpPage({super.key});
-
+  @override
+  ConsumerState<SignUpPage> createState() => _SignUpPageState();
+}
+class _SignUpPageState extends ConsumerState<SignUpPage> {
   void _signUp(BuildContext context, WidgetRef ref) async {
     final emailController = ref.read(emailControllerProvider);
     final passwordController = ref.read(passwordControllerProvider);
@@ -37,7 +40,7 @@ class SignUpPage extends ConsumerWidget {
       );
       return;
     }
-
+    FocusScope.of(context).unfocus();
     ref.read(loadingProvider.notifier).startLoading();
 
     final user = await auth.signUpUser(email, password);
@@ -73,9 +76,19 @@ class SignUpPage extends ConsumerWidget {
     }
   }
 
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    ref.read(loadingProvider.notifier).stopLoading();
+    ref.read(emailControllerProvider).clear();
+    ref.read(passwordControllerProvider).clear();
+    ref.read(confirmPasswordControllerProvider).clear();
+  }
+
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     final isLoading = ref.watch(loadingProvider);
     final emailController = ref.watch(emailControllerProvider);
     final passwordController = ref.watch(passwordControllerProvider);

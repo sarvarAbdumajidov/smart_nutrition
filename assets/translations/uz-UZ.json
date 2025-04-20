@@ -82,5 +82,8 @@
   "str_old_password": "Eski parol",
   "str_new_password": "Yangi parol",
   "str_confirm_new_password": "Yangi parolni tasdiqlang",
-  "duration_minutes": "{} daqiqa"
+  "duration_minutes": "{} daqiqa",
+  "str_english": "Ingliz tili",
+  "str_russian": "Rus tili",
+  "str_uzbek": "O'zbek tili"
 }

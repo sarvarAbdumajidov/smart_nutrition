@@ -98,9 +98,9 @@ class _HomePageState extends ConsumerState<HomePage> {
                           child: Text("str_no".tr(), style: TextStyle(fontSize: 20)),
                         ),
                         TextButton(
-                          onPressed: () {
+                          onPressed: () async{
                             ref.read(searchQueryProvider.notifier).state = "";
-                            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => SignInPage()));
+                            await auth.signOut(context);
                           },
                           child: Text("str_yes".tr(), style: TextStyle(fontSize: 20)),
                         ),

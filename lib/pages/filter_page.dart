@@ -22,7 +22,7 @@ class FilterPage extends ConsumerWidget {
           },
         ),
         centerTitle: true,
-        title: Text( "Filters"
+        title: Text( "str_filters".tr()
         ,style: TextStyle(fontSize: 25),),
       ),
       body: Padding(
@@ -35,27 +35,27 @@ class FilterPage extends ConsumerWidget {
     return Column(
       children: [
         _buildSwitch(
-          title: 'Vegetarian'.tr(),
+          title: 'str_vegetarian'.tr(),
           value: state.isVegetarian,
           onChanged: (_) => notifier.toggleVegetarian(),
         ),
         _buildSwitch(
-          title: 'Diabetes'.tr(),
+          title: 'str_diabetes'.tr(),
           value: state.isDiabetes,
           onChanged: (_) => notifier.toggleDiabetes(),
         ),
         _buildSwitch(
-          title: 'Calorie'.tr(),
+          title: 'str_calorie'.tr(),
           value: state.isCalorie,
           onChanged: (_) => notifier.toggleCalorie(),
         ),
         _buildSwitch(
-          title: 'Kids'.tr(),
+          title: 'str_kids'.tr(),
           value: state.isKids,
           onChanged: (_) => notifier.toggleKids(),
         ),
         _buildSwitch(
-          title: 'Protein'.tr(),
+          title: 'str_protein'.tr(),
           value: state.isProtein,
           onChanged: (_) => notifier.toggleProtein(),
         ),
@@ -69,7 +69,7 @@ class FilterPage extends ConsumerWidget {
   }) {
     return SwitchListTile(
       title: Text(
-        title,
+        title.tr(),
         style: const TextStyle(color: Colors.white, fontSize: 20, letterSpacing: 3),
       ),
       value: value,

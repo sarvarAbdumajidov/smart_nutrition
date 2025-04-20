@@ -82,5 +82,8 @@
   "str_old_password": "Старый пароль",
   "str_new_password": "Новый пароль",
   "str_confirm_new_password": "Подтвердите новый пароль",
-  "duration_minutes": "{} мин"
+  "duration_minutes": "{} мин",
+  "str_english": "Английский",
+  "str_russian": "Русский",
+  "str_uzbek": "Узбекский"
 }

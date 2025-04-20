@@ -20,17 +20,17 @@ class AddMealPage extends ConsumerStatefulWidget {
 }
 
 class _AddMealPageState extends ConsumerState<AddMealPage> {
-  List<String> categoriesList = [
-    "str_national_dishes".tr(),
-    "str_fast_food".tr(),
-    "str_fruits".tr(),
-    "str_international_dishes".tr(),
-    "str_drinks".tr(),
-    "str_bread_and_pastry_products".tr(),
-    "str_salads".tr(),
-    "str_sweets_and_desserts".tr(),
-    "str_greens_and_vegetable_dishes".tr(),
-    "str_for_athletes".tr(),
+  late List<String> categoryKeys = [
+    "national_dishes",
+    "fast_food",
+    "fruits",
+    "international_dishes",
+    "drinks",
+    "bread_and_pastry_products",
+    "salads",
+    "sweets_and_desserts",
+    "greens_and_vegetable_dishes",
+    "for_athletes",
   ];
   List<String> selectedCtg = [];
 
@@ -105,18 +105,18 @@ class _AddMealPageState extends ConsumerState<AddMealPage> {
 
                 child: ListView.builder(
                   shrinkWrap: true,
-                  itemCount: categoriesList.length,
+                  itemCount: categoryKeys.length,
                   itemBuilder: (context, index) {
-                    final category = categoriesList[index];
-                    final isSelected = selectedCategories.contains(category);
+                    final categoryKey  = categoryKeys[index];
+                    final isSelected = selectedCategories.contains(categoryKey);
 
                     return CheckboxListTile(
-                      title: Text(category.tr()),
+                      title: Text("str_$categoryKey".tr()),
                       value: isSelected,
                       activeColor:
                           Colors.primaries[index % Colors.primaries.length],
                       onChanged: (_) {
-                        selectedCategoriesNotifier.toggleCategory(category);
+                        selectedCategoriesNotifier.toggleCategory(categoryKey);
                       },
                     );
                   },
@@ -138,7 +138,7 @@ class _AddMealPageState extends ConsumerState<AddMealPage> {
                     ref.read(selectedCategoriesProvider.notifier).selectedList;
                 Navigator.pop(context);
               },
-              child:  Text("Select".tr()),
+              child:  Text("str_select".tr()),
             ),
           ],
         );
@@ -339,6 +339,7 @@ class _AddMealPageState extends ConsumerState<AddMealPage> {
 
                   // Submit Button
                   _buildSubmitButton(),
+                  SizedBox(height: 30),
                 ],
               ),
               if (isLoading) const CircularProgressIndicator(),
@@ -407,7 +408,7 @@ class _AddMealPageState extends ConsumerState<AddMealPage> {
         child: MaterialButton(
           color: const Color(0xFF3E9FBD),
           onPressed: () => _showCategoryDialog(context),
-          child:  Text("str_select_categories".tr().tr()),
+          child:  Text("str_select_categories".tr()),
         ),
       ),
     );
@@ -417,27 +418,27 @@ class _AddMealPageState extends ConsumerState<AddMealPage> {
     return Column(
       children: [
         _buildSwitch(
-          title: "str_vegetarian".tr(),
+          title: "str_vegetarian",
           value: state.isVegetarian,
           onChanged: (_) => notifier.toggleVegetarian(),
         ),
         _buildSwitch(
-          title: "str_diabetes".tr(),
+          title: "str_diabetes",
           value: state.isDiabetes,
           onChanged: (_) => notifier.toggleDiabetes(),
         ),
         _buildSwitch(
-          title: "str_calorie".tr(),
+          title: "str_calorie",
           value: state.isCalorie,
           onChanged: (_) => notifier.toggleCalorie(),
         ),
         _buildSwitch(
-          title: "str_kids".tr(),
+          title: "str_kids",
           value: state.isKids,
           onChanged: (_) => notifier.toggleKids(),
         ),
         _buildSwitch(
-          title: "str_protein".tr(),
+          title: "str_protein",
           value: state.isProtein,
           onChanged: (_) => notifier.toggleProtein(),
         ),

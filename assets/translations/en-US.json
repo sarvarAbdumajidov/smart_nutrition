@@ -82,5 +82,8 @@
   "str_old_password": "Old password",
   "str_new_password": "New password",
   "str_confirm_new_password": "Confirm new password",
-  "duration_minutes": "{} min"
+  "duration_minutes": "{} min",
+  "str_english": "English",
+  "str_russian": "Russian",
+  "str_uzbek": "Uzbek"
 }

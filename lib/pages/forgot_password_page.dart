@@ -36,7 +36,7 @@ class ForgotPasswordPage extends ConsumerWidget {
                     focusNode: emailFocusNode,
                     keyboardType: TextInputType.emailAddress,
                     decoration: InputDecoration(
-                      labelText: "Email".tr(),
+                      labelText: "str_email".tr(),
                       border: OutlineInputBorder(),
                     ),
                     validator: (value) {

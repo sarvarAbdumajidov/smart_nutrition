@@ -16,17 +16,17 @@ class CategoriesPage extends ConsumerStatefulWidget {
 }
 
 class _CategoriesPageState extends ConsumerState<CategoriesPage> {
-  final List<String> categoriesList = [
-    "str_national_dishes".tr(),
-    "str_fast_food".tr(),
-    "str_fruits".tr(),
-    "str_international_dishes".tr(),
-    "str_drinks".tr(),
-    "str_bread_and_pastry_products".tr(),
-    "str_salads".tr(),
-    "str_sweets_and_desserts".tr(),
-    "str_greens_and_vegetable_dishes".tr(),
-    "str_for_athletes".tr(),
+   List<String> categoriesList = [
+     "national_dishes",
+     "fast_food",
+     "fruits",
+     "international_dishes",
+     "drinks",
+     "bread_and_pastry_products",
+     "salads",
+     "sweets_and_desserts",
+     "greens_and_vegetable_dishes",
+     "for_athletes",
   ];
 
   final List<Color> colors = [
@@ -118,6 +118,7 @@ class _CategoriesPageState extends ConsumerState<CategoriesPage> {
                       ),
                     ),
                     onTap: () {
+                      Navigator.pop(context);
                       Navigator.push(context, MaterialPageRoute(builder: (context) => SearchMealsPage()));
                     },
                   ),
@@ -135,6 +136,7 @@ class _CategoriesPageState extends ConsumerState<CategoriesPage> {
                       ),
                     ),
                     onTap: () {
+                      Navigator.pop(context);
                       Navigator.push(context, MaterialPageRoute(builder: (context) => FilterPage()));
                     },
                   ),
@@ -152,6 +154,7 @@ class _CategoriesPageState extends ConsumerState<CategoriesPage> {
                       ),
                     ),
                     onTap: () {
+                      Navigator.pop(context);
                       Navigator.push(context, MaterialPageRoute(builder: (context) => SettingsPage()));
                     },
                   ),
@@ -185,13 +188,10 @@ class _CategoriesPageState extends ConsumerState<CategoriesPage> {
                             child: Text("str_no".tr(), style: TextStyle(fontSize: 20)),
                           ),
                           TextButton(
-                            onPressed: () {
-                              Navigator.pushReplacement(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => SignInPage(),
-                                ),
-                              );
+                            onPressed: () async{
+                              final filterNotifier = ref.read(filterProvider.notifier);
+                              filterNotifier.resetFilters();
+                             await auth.signOut(context);
                             },
                             child: Text("str_yes".tr(), style: TextStyle(fontSize: 20)),
                           ),
@@ -245,7 +245,7 @@ class _CategoriesPageState extends ConsumerState<CategoriesPage> {
                 ),
               ),
               child: Text(
-                categoriesList[index].tr(),
+                ("str_${categoriesList[index]}".tr()),
                 textAlign: TextAlign.center,
                 style: TextStyle(fontSize: 17),
               ),
