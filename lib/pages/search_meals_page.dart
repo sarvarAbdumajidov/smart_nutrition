@@ -17,6 +17,15 @@ class _SearchMealsPageState extends ConsumerState<SearchMealsPage> {
   bool searchByTitle = true;
   bool searchByIngredients = true;
 
+  String normalize(String input) {
+    // Belgilarni olib tashlaydi va kichik harflarga o‘tkazadi
+    return input
+        .toLowerCase()
+        .replaceAll(RegExp(r'[^\w\s]'), '') // belgilarni olib tashlaydi
+        .replaceAll(RegExp(r'\s+'), ' ') // ortiqcha bo‘shliqni 1 ta bo‘shliqqa aylantiradi
+        .trim(); // oldi va oxiridagi bo‘shliqni olib tashlaydi
+  }
+
   @override
   Widget build(BuildContext context) {
     final searchQuery = ref.watch(searchQueryProvider).toLowerCase();
@@ -132,7 +141,8 @@ class _SearchMealsPageState extends ConsumerState<SearchMealsPage> {
             final titleMatches = searchByTitle &&
                 (meal.title?.toLowerCase().contains(searchQuery) ?? false);
             final ingredientMatches = searchByIngredients &&
-                (meal.ingredients?.toLowerCase().contains(searchQuery) ?? false);
+                (meal.ingredients != null &&
+                    normalize(meal.ingredients!).contains(normalize(searchQuery)));
 
             // Agar qidiruv bo'sh bo'lsa va hech qanday filter tanlanmagan bo'lsa
             if (searchQuery.isEmpty && !filter.hasActiveFilters) {
