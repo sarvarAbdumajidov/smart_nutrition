@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:smart_nutrition/data/save_data.dart';
 import 'package:smart_nutrition/pages/categories_page.dart';
 import 'package:smart_nutrition/pages/sign_in_page.dart';
 import 'package:smart_nutrition/service/hive_service.dart';
