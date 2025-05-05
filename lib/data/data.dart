@@ -1,131 +1,902 @@
 final dishes = [
   {
+
     "id": "",
-    "title": "O‘zbek palovi",
-    "imageUrl": "data:image/jpeg;base64,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",
-    "duration": 90,
-    "ingredients": "Go'sht, guruch, sabzi, piyoz, zira, tuz, yog'",
-    "steps": "1. Go'shtni qovuring. 2. Sabzi va piyoz qo‘shing. 3. Guruchni soling. 4. Suv qo‘shib, dimlang.",
-    "category": ["national_dishes", "greens_and_vegetable_dishes"],
-    "isVegetarian": false,
-    "isDiabetes": false,
-    "isCalorie": true,
-    "isKids": true,
-    "isProtein": true,
-  },
-  {
-    "id": "",
+
     "title": "Tovuq donari",
-    "imageUrl": "https://cdn.pixabay.com/photo/2018/03/10/18/57/kebab-3212146_1280.jpg",
+
+    "imageUrl": "https://img.recraft.ai/lT08pTMZ8_hR8Bw3gr0LN58y6ES5IO1OfwYAM2a4eJc/rs:fit:1434:1024:0/q:95/g:no/plain/abs://prod/images/1787adb6-2d9e-4639-bb21-6abc6113896c@jpg",
+
     "duration": 25,
-    "ingredients": "Tovuq go‘shti, lavash, sous, salat barglari",
-    "steps": "1. Tovuqni qovuring. 2. Lavashga salat va sous bilan joylang. 3. Qadoqlang va tayyorlang.",
+
+    "ingredients": "Tovuq go‘shti, lavash noni, sous, salat barglari",
+
+    "steps": "1. Tovuq go‘shtini tuz va ziravorlar bilan marinad qiling. 2. Tovuqni qovuring yoki grilda pishiring. 3. Lavashga salat va sous bilan joylang. 4. Qadoqlang va iste'mol qiling.",
+
     "category": ["fast_food", "for_athletes"],
+
     "isVegetarian": false,
+
     "isDiabetes": false,
+
     "isCalorie": true,
+
     "isKids": true,
-    "isProtein": true,
+
+    "isProtein": true
+
   },
+
   {
+
     "id": "",
-    "title": "Qulupnay va banan smuzi",
-    "imageUrl": "https://cdn.pixabay.com/photo/2016/11/29/04/17/smoothie-1869738_1280.jpg",
-    "duration": 10,
-    "ingredients": "Banan, qulupnay, yogurt, asal",
-    "steps": "1. Mevalarni tozalang. 2. Blenderga soling. 3. Yogurt va asal bilan aralashtiring.",
-    "category": ["fruits", "sweets_and_desserts"],
+
+    "title": "Palov",
+
+    "imageUrl": "https://img.recraft.ai/JzJTAFiVQeNsQhuwAJhJSVOuaAo3laXGJKIBIgXKI-k/rs:fit:1434:1024:0/q:95/g:no/plain/abs://prod/images/77485c7b-39b6-45b5-81aa-5d345e02f46e@jpg",
+
+    "duration": 90,
+
+    "ingredients": "Go‘sht, guruch, piyoz, sabzi, yog‘, tuz, ziravorlar",
+
+    "steps": "1. Go‘shtni qovuring. 2. Piyoz va sabzini qo‘shing, pishiring. 3. Guruchni yuvib, qo‘shing va suv soling. 4. Guruch pishguncha qovuring va damlang.",
+
+    "category": ["national_dishes", "for_athletes"],
+
+    "isVegetarian": false,
+
+    "isDiabetes": false,
+
+    "isCalorie": true,
+
+    "isKids": true,
+
+    "isProtein": true
+
+  },
+
+  {
+
+    "id": "",
+
+    "title": "Qaynatilgan tuxum",
+
+    "imageUrl": "https://img.recraft.ai/VFAf5_aeeuGIjlnKkunrlARaR25VAhS1VArJYWks2-U/rs:fit:1434:1024:0/q:95/g:no/plain/abs://prod/images/2cf0657d-ba50-4bcb-8e2a-0380e30e580e@jpg",
+
+    "duration": 12,
+
+    "ingredients": "Tuxum, suv, tuz",
+
+    "steps": "1. Tuxumni suvga solib, qaynatib pishiring. 2. Sovutib, tozalang va xizmat qiling.",
+
+    "category": ["fast_food", "for_athletes"],
+
     "isVegetarian": true,
-    "isDiabetes": true,
-    "isCalorie": false,
-    "isKids": true,
-    "isProtein": false,
-  },
-  {
-    "id": "",
-    "title": "Spagetti karbonara",
-    "imageUrl": "https://cdn.pixabay.com/photo/2022/01/26/11/56/spaghetti-6970112_1280.jpg",
-    "duration": 30,
-    "ingredients": "Spagetti, tuxum, parmezan, dudlangan go‘sht",
-    "steps": "1. Spagettini qaynatib oling. 2. Sousni tayyorlang. 3. Aralashtirib, ustiga pishloq seping.",
-    "category": ["international_dishes", "fast_food"],
-    "isVegetarian": false,
+
     "isDiabetes": false,
+
     "isCalorie": true,
+
     "isKids": true,
-    "isProtein": true,
+
+    "isProtein": true
+
   },
+
   {
+
     "id": "",
-    "title": "Somsa",
-    "imageUrl": "https://cdn.pixabay.com/photo/2020/11/06/10/52/samosa-5718037_1280.jpg",
-    "duration": 60,
-    "ingredients": "Un, go‘sht, piyoz, ziravorlar, yog‘",
-    "steps": "1. Xamir tayyorlang. 2. Go‘sht va piyozdan qiymani tayyorlang. 3. Somsani tuging va tandirda pishiring.",
-    "category": ["bread_and_pastry_products", "fast_food"],
-    "isVegetarian": false,
-    "isDiabetes": false,
-    "isCalorie": true,
-    "isKids": true,
-    "isProtein": true,
-  },
-  {
-    "id": "",
-    "title": "Grechka salat",
-    "imageUrl": "https://cdn.pixabay.com/photo/2023/02/12/16/11/buckwheat-7784530_1280.jpg",
+
+    "title": "Qovurilgan kartoshka",
+
+    "imageUrl": "https://img.recraft.ai/H2rvpuQl68JFC4ltEXUd-2ZH9RAdxBv3QxyXLEyx0yQ/rs:fit:1434:1024:0/q:95/g:no/plain/abs://prod/images/bcb74f25-47c1-4b59-9559-56cca8fa9e0f@jpg",
+
     "duration": 20,
-    "ingredients": "Grechka, bodring, pomidor, yog'",
-    "steps": "1. Grechkani qaynatib oling. 2. Sabzavotlarni maydalang. 3. Aralashtiring va ziravor seping.",
-    "category": ["salads", "greens_and_vegetable_dishes"],
+
+    "ingredients": "Kartoshka, yog‘, tuz",
+
+    "steps": "1. Kartoshkani tozalang va kesing. 2. Yog‘da qovuring. 3. Tuz seping va issiq holda xizmat qiling.",
+
+    "category": ["fast_food"],
+
     "isVegetarian": true,
+
     "isDiabetes": true,
-    "isCalorie": false,
-    "isKids": true,
-    "isProtein": false,
-  },
-  {
-    "id": "",
-    "title": "Napoleon torti",
-    "imageUrl": "https://cdn.pixabay.com/photo/2021/11/17/08/52/cake-6800994_1280.jpg",
-    "duration": 120,
-    "ingredients": "Xamir, krem, shakar",
-    "steps": "1. Xamirni qatlamlab pishiring. 2. Krem tayyorlang. 3. Har bir qatlamga surting.",
-    "category": ["sweets_and_desserts"],
-    "isVegetarian": true,
-    "isDiabetes": false,
+
     "isCalorie": true,
+
     "isKids": true,
-    "isProtein": false,
+
+    "isProtein": false
+
   },
+
   {
+
     "id": "",
-    "title": "Sabzavotli gulas",
-    "imageUrl": "https://cdn.pixabay.com/photo/2023/06/14/14/39/vegetables-8062939_1280.jpg",
-    "duration": 35,
-    "ingredients": "Kartoshka, karam, bulg‘or qalampiri, pomidor",
-    "steps": "1. Sabzavotlarni tozalab to‘g‘rang. 2. Qovuring. 3. Suv qo‘shib dimlang.",
-    "category": ["greens_and_vegetable_dishes", "vegan"],
-    "isVegetarian": true,
-    "isDiabetes": true,
-    "isCalorie": true,
-    "isKids": true,
-    "isProtein": false,
-  },
-  {
-    "id": "",
-    "title": "Proteinli omlet",
-    "imageUrl": "https://cdn.pixabay.com/photo/2023/03/27/07/52/omelette-7881067_1280.jpg",
+
+    "title": "Tuxumli sendvich",
+
+    "imageUrl": "https://img.recraft.ai/76ii0Sr_sjelwu7J65mlN8WUhqC00Euhiv5M5maLw2k/rs:fit:1434:1024:0/q:95/g:no/plain/abs://prod/images/ce9f4ca1-8ca0-43ef-8374-eeea4eaada2c@jpg",
+
     "duration": 15,
-    "ingredients": "Tuxum, sut, brokkoli",
-    "steps": "1. Tuxum va sutni aralashtiring. 2. Brokkoli soling. 3. Qovuring.",
-    "category": ["for_athletes", "fast_food"],
-    "isVegetarian": true,
-    "isDiabetes": true,
-    "isCalorie": false,
+
+    "ingredients": "Non, tuxum, salat barglari, sous",
+
+    "steps": "1. Tuxumni pishiring. 2. Non ustiga sous surting. 3. Tuxum va salatning barglarini qo‘ying. 4. Sendvichni yopib, xizmat qiling.",
+
+    "category": ["fast_food", "for_athletes"],
+
+    "isVegetarian": false,
+
+    "isDiabetes": false,
+
+    "isCalorie": true,
+
     "isKids": true,
-    "isProtein": true,
+
+    "isProtein": true
+
   },
-  // To'liq 20 ta ma'lumot uchun shunga o'xshab davom ettirish mumkin...
+
+  {
+
+    "id": "",
+
+    "title": "Qaynatilgan tovuq",
+
+    "imageUrl": "https://img.recraft.ai/Jeu8YyJ05vIQBM_uLqc6ahleX-1qFgAkOTIPZDbM6B0/rs:fit:1434:1024:0/q:95/g:no/plain/abs://prod/images/bbc7c962-993b-4453-bd0c-b6fb620f1e7c@jpg",
+
+    "duration": 50,
+
+    "ingredients": "Tovuq, tuz, murch, ziravorlar",
+
+    "steps": "1. Tovuqni tuz va ziravorlar bilan aralashtiring. 2. Suvda qaynatib pishiring. 3. Sovutib, xizmat qiling.",
+
+    "category": ["fast_food", "for_athletes"],
+
+    "isVegetarian": false,
+
+    "isDiabetes": false,
+
+    "isCalorie": true,
+
+    "isKids": true,
+
+    "isProtein": true
+
+  },
+
+  {
+
+    "id": "",
+
+    "title": "Manti",
+
+    "imageUrl": "https://img.recraft.ai/hF7QkITnPBprIG1FzRzzbbJ75iNhEzZ2m2iZq0BoF-I/rs:fit:1434:1024:0/q:95/g:no/plain/abs://prod/images/612b2e0e-d359-42a8-83ba-89bbdac25dbf@jpg",
+
+    "duration": 90,
+
+    "ingredients": "Un, go‘sht, piyoz, tuz, suv",
+
+    "steps": "1. Un va suvdan xamir tayyorlang. 2. Go‘sht va piyozni mayda to‘g‘rang. 3. Xamirni yoyib, go‘shtli aralashma soling. 4. Mantilarni bug‘da pishiring.",
+
+    "category": ["national_dishes", "for_athletes"],
+
+    "isVegetarian": false,
+
+    "isDiabetes": false,
+
+    "isCalorie": true,
+
+    "isKids": true,
+
+    "isProtein": true
+
+  },
+
+  {
+
+    "id": "",
+
+    "title": "Shurva",
+
+    "imageUrl": "https://img.recraft.ai/5nkhAO1r4CvODR_rEqLOSR74KDzGy_hmDcnHMqTlEQU/rs:fit:1434:1024:0/q:95/g:no/plain/abs://prod/images/b393aeeb-7bc8-4a55-a1ba-6f6bcc5e24e5@jpg",
+
+    "duration": 60,
+
+    "ingredients": "Go‘sht, sabzi, piyoz, kartoshka, pomidor, tuz, ziravorlar",
+
+    "steps": "1. Go‘shtni qaynatib oling. 2. Sabzi, piyoz va kartoshkani to‘g‘rang va qo‘shing. 3. Pomidor va ziravorlarni qo‘shib, sho‘rva tayyorlang.",
+
+    "category": ["national_dishes"],
+
+    "isVegetarian": false,
+
+    "isDiabetes": false,
+
+    "isCalorie": true,
+
+    "isKids": true,
+
+    "isProtein": true
+
+  },
+
+  {
+
+    "id": "",
+
+    "title": "Chuchvara",
+
+    "imageUrl": "https://img.recraft.ai/eobv3YNxN_hT28gkEqMjMQLNwQ3y-T2zMNi-AemqZY0/rs:fit:1434:1024:0/q:95/g:no/plain/abs://prod/images/6c00adc8-1afb-4d20-bf4f-ced1e65127f6@jpg",
+
+    "duration": 60,
+
+    "ingredients": "Un, go‘sht, piyoz, tuz, suv",
+
+    "steps": "1. Xamirni yoğiring. 2. Go‘shtli qo‘ymasini tayyorlang. 3. Xamirga solib, dumplings shaklini bering. 4. Qaynatib pishiring.",
+
+    "category": ["national_dishes"],
+
+    "isVegetarian": false,
+
+    "isDiabetes": false,
+
+    "isCalorie": true,
+
+    "isKids": true,
+
+    "isProtein": true
+
+  },
+
+  {
+
+    "id": "",
+
+    "title": "Somsa",
+
+    "imageUrl": "https://img.recraft.ai/DPof3GJkwCOockzyFkDcFcnfUDs3djmq4MjYwMK6RGQ/rs:fit:1434:1024:0/q:95/g:no/plain/abs://prod/images/227633cc-f90f-4d11-b7e5-46bcbb2a0356@jpg",
+
+    "duration": 90,
+
+    "ingredients": "Un, go‘sht, piyoz, yog‘, tuz",
+
+    "steps": "1. Xamir tayyorlang. 2. Go‘sht va piyoz aralashmasini tayyorlang. 3. Xamirga solib, pishiring yoki qovuring.",
+
+    "category": ["national_dishes", "bread_and_pastry_products"],
+
+    "isVegetarian": false,
+
+    "isDiabetes": false,
+
+    "isCalorie": true,
+
+    "isKids": true,
+
+    "isProtein": true
+
+  },
+
+
+  {
+
+    "id": "",
+
+    "title": "Mevali salat",
+
+    "imageUrl": "https://img.recraft.ai/CTZP_o1wfpqHM3GntuuFdSW_WdTfcJuOFKpvc327aMk/rs:fit:1434:1024:0/q:95/g:no/plain/abs://prod/images/5d7c09b5-dff4-4661-8c0b-e93d3540dba8@jpg",
+
+    "duration": 15,
+
+    "ingredients": "Olma, apelsin, banan, asal, limon sharbati",
+
+    "steps": "1. Mevalarni tozalang va bo‘laklarga kesing. 2. Asal va limon sharbati bilan aralashtiring. 3. Sovutgichda biroz tursin va xizmat qiling.",
+
+    "category": ["fruits", "salads"],
+
+    "isVegetarian": true,
+
+    "isDiabetes": true,
+
+    "isCalorie": false,
+
+    "isKids": true,
+
+    "isProtein": false
+
+  },
+
+  {
+
+    "id": "",
+
+    "title": "Olma va tvorogli desert",
+
+    "imageUrl": "https://img.recraft.ai/4vVUthUxrpmYtFCah47KFN95OEL_3dy0L00rL_0zTlk/rs:fit:1434:1024:0/q:95/g:no/plain/abs://prod/images/604c3432-b09f-4d9c-b8fb-150efcc1fa5c@jpg",
+
+    "duration": 30,
+
+    "ingredients": "Olma, tvorog, shakar, vanil",
+
+    "steps": "1. Olmani tozalab, bo‘laklarga kesing. 2. Tvorog va shakarni aralashtiring. 3. Mevalar bilan birga aralashtiring. 4. Sovutgichda damlang.",
+
+    "category": ["fruits", "sweets_and_desserts"],
+
+    "isVegetarian": true,
+
+    "isDiabetes": false,
+
+    "isCalorie": true,
+
+    "isKids": true,
+
+    "isProtein": true
+
+  },
+
+  {
+
+    "id": "",
+
+    "title": "Mevali kokteyl",
+
+    "imageUrl": "https://img.recraft.ai/5js0Row6IIWZlBaHR4Bghd0Vy09rTQ5CP3WsTa67Dfw/rs:fit:1434:1024:0/q:95/g:no/plain/abs://prod/images/f1a3bf06-8532-4816-8a9c-c4aa07008473@jpg",
+
+    "duration": 10,
+
+    "ingredients": "Banan, apelsin sharbati, qulupnay, asal, muz",
+
+    "steps": "1. Barcha ingredientlarni blenderga soling. 2. Yaxshilab aralashtiring. 3. Sovutgichda xizmat qiling.",
+
+    "category": ["fruits", "drinks", "for_athletes"],
+
+    "isVegetarian": true,
+
+    "isDiabetes": true,
+
+    "isCalorie": false,
+
+    "isKids": true,
+
+    "isProtein": false
+
+  },
+
+  {
+
+    "id": "",
+
+    "title": "Mevali smuzi",
+
+    "imageUrl": "https://img.recraft.ai/DkajVa_LqUdxMVXmHhrU8ak6jRXL3aWNTPFWko9ufa0/rs:fit:1434:1024:0/q:95/g:no/plain/abs://prod/images/69139659-7a51-497c-97ff-b3ccddc1d3fd@jpg",
+
+    "duration": 10,
+
+    "ingredients": "Apelsin, banan, qulupnay, yogurt, asal",
+
+    "steps": "1. Barcha ingredientlarni blenderda aralashtiring. 2. Qo‘shimcha asal qo‘shing. 3. Sovutgichda xizmat qiling.",
+
+    "category": ["fruits", "drinks", "for_athletes"],
+
+    "isVegetarian": true,
+
+    "isDiabetes": false,
+
+    "isCalorie": false,
+
+    "isKids": true,
+
+    "isProtein": false
+
+  },
+
+  {
+
+    "id": "",
+
+    "title": "Mevali pyure",
+
+    "imageUrl": "https://img.recraft.ai/6S1HQJUCxQaPCit1H2XEandhJMBYJZZ51m4KaW2sSUE/rs:fit:1434:1024:0/q:95/g:no/plain/abs://prod/images/2e9437a0-942c-4fa4-a4b4-2b681fa9b53d@jpg",
+
+    "duration": 20,
+
+    "ingredients": "Olma, nok, banan, asal",
+
+    "steps": "1. Mevalarni tozalang va bo‘laklarga kesing. 2. Qaynatib pyure tayyorlang. 3. Asal qo‘shing va yaxshi aralashtiring. 4. Sovitib iste'mol qiling.",
+
+    "category": ["fruits", "for_athletes", "sweets_and_desserts"],
+
+    "isVegetarian": true,
+
+    "isDiabetes": false,
+
+    "isCalorie": true,
+
+    "isKids": true,
+
+    "isProtein": false
+
+  },
+
+  {
+
+    "id": "",
+
+    "title": "Qulupnay sharbati",
+
+    "imageUrl": "https://img.recraft.ai/PRdwPtnRZANyWXMG5ro6Kw1YeECSCmWWSIuQhu9hJY4/rs:fit:1434:1024:0/q:95/g:no/plain/abs://prod/images/d656fb89-d9d5-41c8-947f-5f751db3122c@jpg",
+
+    "duration": 10,
+
+    "ingredients": "Qulupnay, suv, asal",
+
+    "steps": "1. Qulupnayni blenderda aralashtiring. 2. Suv va asal qo‘shing. 3. Sovutib, xizmat qiling.",
+
+    "category": ["drinks", "for_athletes"],
+
+    "isVegetarian": true,
+
+    "isDiabetes": true,
+
+    "isCalorie": false,
+
+    "isKids": true,
+
+    "isProtein": false
+
+  },
+
+  {
+
+    "id": "",
+
+    "title": "Limonli choy",
+
+    "imageUrl": "https://img.recraft.ai/hV_iK1C3Cc6d3rY8v5XnJWuGmXAgTIOwB467DquyD1g/rs:fit:1434:1024:0/q:95/g:no/plain/abs://prod/images/f6d50c95-1110-49df-8098-22915377c2ad@jpg",
+
+    "duration": 5,
+
+    "ingredients": "Choy, limon, shakar",
+
+    "steps": "1. Choyni tayyorlang. 2. Limon qo‘shing. 3. Shakar bilan aralashtiring. 4. Issiq bilan xizmat qiling.",
+
+    "category": ["drinks"],
+
+    "isVegetarian": true,
+
+    "isDiabetes": true,
+
+    "isCalorie": false,
+
+    "isKids": true,
+
+    "isProtein": false
+
+  },
+
+  {
+
+    "id": "",
+
+    "title": "Bodom suti smuzi",
+
+    "imageUrl": "https://img.recraft.ai/GYCqJFu7SaqG8Vma2XiNq5raun4ZuQgMmNZfXN7HMpg/rs:fit:1434:1024:0/q:95/g:no/plain/abs://prod/images/b43a83f4-18cd-4aee-92e4-15e7a560b84b@jpg",
+
+    "duration": 10,
+
+    "ingredients": "Bodom, sut, asal, muz",
+
+    "steps": "1. Ingredientlarni blenderga soling. 2. Aralashtiring. 3. Sovutib xizmat qiling.",
+
+    "category": ["drinks", "for_athletes"],
+
+    "isVegetarian": true,
+
+    "isDiabetes": false,
+
+    "isCalorie": false,
+
+    "isKids": true,
+
+    "isProtein": true
+
+  },
+
+
+  {
+
+    "id": "",
+
+    "title": "Pirog",
+
+    "imageUrl": "https://img.recraft.ai/G0-gT2xUr8ijvVPWQRtkBVAjTdA3QwBaHOfplWP7Ck8/rs:fit:1434:1024:0/q:95/g:no/plain/abs://prod/images/df4ec0e4-0b8a-4706-84c6-4ef9cc242d45@jpg",
+
+    "duration": 180,
+
+    "ingredients": "Un, suv, tuz, xamirturush",
+
+    "steps": "1. Xamir yoğiring. 2. Nonni tandirda pishiring. 3. Sovutib xizmat qiling.",
+
+    "category": ["bread_and_pastry_products", "national_dishes"],
+
+    "isVegetarian": true,
+
+    "isDiabetes": true,
+
+    "isCalorie": true,
+
+    "isKids": true,
+
+    "isProtein": false
+
+  },
+
+
+  {
+
+    "id": "",
+
+    "title": "Tvorogli pirog",
+
+    "imageUrl": "https://img.recraft.ai/ci-PY2R8MkqSEIxyhGcKllLb0GE81pcgDevc1gpQpps/rs:fit:1434:1024:0/q:95/g:no/plain/abs://prod/images/7cfad5a1-6e56-4665-b354-f6f6e3e8e6d4@jpg",
+
+    "duration": 90,
+
+    "ingredients": "Un, tvorog, tuxum, shakar, sariyog‘",
+
+    "steps": "1. Xamir tayyorlang. 2. Tvorog va shakarni aralashtiring. 3. Xamirga solib pishiring. 4. Sovutib xizmat qiling.",
+
+    "category": ["sweets_and_desserts", "bread_and_pastry_products"],
+
+    "isVegetarian": true,
+
+    "isDiabetes": false,
+
+    "isCalorie": true,
+
+    "isKids": true,
+
+    "isProtein": false
+
+  },
+
+  {
+
+    "id": "",
+
+    "title": "Shokoladli tort",
+
+    "imageUrl": "https://img.recraft.ai/KybQwkmLk-prNqL4HTxxxxCGQKJKdIseIS-UqxAUOT8/rs:fit:1434:1024:0/q:95/g:no/plain/abs://prod/images/89a1a90f-11a8-472f-aa33-83b728068582@jpg",
+
+    "duration": 60,
+
+    "ingredients": "Un, tuxum, shokolad, sut, shakar",
+
+    "steps": "1. Ingredientlarni aralashtiring. 2. Xamir tayyorlab pishiring. 3. Sovutib xizmat qiling.",
+
+    "category": ["sweets_and_desserts"],
+
+    "isVegetarian": true,
+
+    "isDiabetes": false,
+
+    "isCalorie": true,
+
+    "isKids": true,
+
+    "isProtein": false
+
+  },
+
+  {
+
+    "id": "",
+
+    "title": "Muzqaymoq",
+
+    "imageUrl": "https://img.recraft.ai/L2JFh6i4_tTib3cC-Eelj26NBUZ0mfuwh0H4Yx2IUDA/rs:fit:1434:1024:0/q:95/g:no/plain/abs://prod/images/79912f68-bdf0-4b94-b1b6-d93f6655aeb6@jpg",
+
+    "duration": 45,
+
+    "ingredients": "Sut, shakar, vanilin, tuxum, qaymoq",
+
+    "steps": "1. Ingredientlarni aralashtiring. 2. Sovutgichda muzlatib muzqaymoq tayyorlang. 3. Sovuq holda xizmat qiling.",
+
+    "category": ["sweets_and_desserts"],
+
+    "isVegetarian": true,
+
+    "isDiabetes": false,
+
+    "isCalorie": true,
+
+    "isKids": true,
+
+    "isProtein": false
+
+  },
+
+  {
+
+    "id": "",
+
+    "title": "Yashil salat",
+
+    "imageUrl": "https://img.recraft.ai/ELdu8h4CnpmIfl0hYwYnw7PPciPJqnqjKKuRJt9S6Aw/rs:fit:1434:1024:0/q:95/g:no/plain/abs://prod/images/6dfe02ea-6ac5-49c7-bfac-30fda100281c@jpg",
+
+    "duration": 15,
+
+    "ingredients": "Salat barglari, bodring, limon sharbati, tuz",
+
+    "steps": "1. Bodring va salat barglarini tozalang. 2. Limon sharbati va tuz bilan aralashtiring. 3. Sovutgichda biroz tursin va xizmat qiling.",
+
+    "category": ["salads", "greens_and_vegetable_dishes"],
+
+    "isVegetarian": true,
+
+    "isDiabetes": true,
+
+    "isCalorie": false,
+
+    "isKids": true,
+
+    "isProtein": false
+
+  },
+
+  {
+
+    "id": "",
+
+    "title": "Sabzavotli salat",
+
+    "imageUrl": "https://www.recraft.ai/community?imageId=0c5bc851-225d-4580-813c-c659326ca3c3",
+
+    "duration": 10,
+
+    "ingredients": "Bodring, pomidor, sabzi, tuz, sirka",
+
+    "steps": "1. Sabzavotlarni to‘g‘rang. 2. Tuz va sirka bilan aralashtiring. 3. Sovutib xizmat qiling.",
+
+    "category": ["salads", "greens_and_vegetable_dishes"],
+
+    "isVegetarian": true,
+
+    "isDiabetes": true,
+
+    "isCalorie": false,
+
+    "isKids": true,
+
+    "isProtein": false
+
+  },
+
+  {
+
+    "id": "",
+
+    "title": "Sabzavotli ratatuy",
+
+    "imageUrl": "https://img.recraft.ai/5cXFLMAQruAMY6Bg-LvjPKjm2TmUTvfMdEiojK0ftBs/rs:fit:1434:1024:0/q:95/g:no/plain/abs://prod/images/72be8d99-f9c5-471f-88f8-514e2da76675@jpg",
+
+    "duration": 60,
+
+    "ingredients": "Qovurilgan sabzavotlar, pomidor sousi, piyoz, sarimsoq",
+
+    "steps": "1. Piyoz va sarimsoqni qovuring. 2. Sabzavotlarni kesing va qo‘shing. 3. Pomidor sousi bilan pishiring. 4. Issiq holda xizmat qiling.",
+
+    "category": ["greens_and_vegetable_dishes", "international_dishes"],
+
+    "isVegetarian": true,
+
+    "isDiabetes": true,
+
+    "isCalorie": false,
+
+    "isKids": true,
+
+    "isProtein": false
+
+  },
+
+  {
+
+    "id": "",
+
+    "title": "Brokoli salati",
+
+    "imageUrl": "https://img.recraft.ai/mowgnYsjKbQTeb1lPOrvSc8DWQdXIcVGp4KlTweVPxU/rs:fit:1434:1024:0/q:95/g:no/plain/abs://prod/images/439f6bf0-3400-42ff-a7f9-468455274672@jpg",
+
+    "duration": 15,
+
+    "ingredients": "Brokoli, limon sharbati, tuz, zaytun moyi",
+
+    "steps": "1. Brokolini qaynatib oling. 2. Limon sharbati, tuz va zaytun moyi bilan aralashtiring. 3. Sovutib xizmat qiling.",
+
+    "category": ["salads", "greens_and_vegetable_dishes", "for_athletes"],
+
+    "isVegetarian": true,
+
+    "isDiabetes": true,
+
+    "isCalorie": false,
+
+    "isKids": true,
+
+    "isProtein": true
+
+  },
+
+  {
+
+    "id": "",
+
+    "title": "Xalqaro pizza",
+
+    "imageUrl": "https://img.recraft.ai/gQDqt0rK_X0siODGbS-R_cfYjQTUhb1x4i2OtnKGHP8/rs:fit:1434:1024:0/q:95/g:no/plain/abs://prod/images/3240d229-e02f-4d14-8893-d44653b3d1e8@jpg",
+
+    "duration": 40,
+
+    "ingredients": "Un, pomidor sousi, pishloq, kolbasa, qo‘ziqorin",
+
+    "steps": "1. Xamir tayyorlang. 2. Sos va ingredientlarni soling. 3. Pishiring. 4. Issiq holda xizmat qiling.",
+
+    "category": ["international_dishes", "fast_food"],
+
+    "isVegetarian": false,
+
+    "isDiabetes": false,
+
+    "isCalorie": true,
+
+    "isKids": true,
+
+    "isProtein": true
+
+  },
+
+  {
+
+    "id": "",
+
+    "title": "Spagetti Karbonara",
+
+    "imageUrl": "https://img.recraft.ai/N_SIZ1TktRlSe-SUbStaGriBD0gfNuCdfsQJwF5Gq2I/rs:fit:1434:1024:0/q:95/g:no/plain/abs://prod/images/1e31fa2e-f8a8-4509-a461-c918011edcdc@jpg",
+
+    "duration": 30,
+
+    "ingredients": "Spagetti, tuxum, pishloq, pancetta, qora murch",
+
+    "steps": "1. Spagetti pishiring. 2. Tuxum va pishloqni aralashtiring. 3. Pancettani qovuring. 4. Hammasini aralashtirib xizmat qiling.",
+
+    "category": ["international_dishes", "for_athletes"],
+
+    "isVegetarian": false,
+
+    "isDiabetes": false,
+
+    "isCalorie": true,
+
+    "isKids": true,
+
+    "isProtein": true
+
+  },
+
+  {
+
+    "id": "",
+
+    "title": "Beshbarmak",
+
+    "imageUrl": "https://img.recraft.ai/J8T3gtiBjOGDdVnzN6Q7_8lLTMyqk9oiLwE3_Z2f_dw/rs:fit:1434:1024:0/q:95/g:no/plain/abs://prod/images/12f216b1-7bb1-4fe4-8f8c-30fe4416ccb0@jpg",
+
+    "duration": 120,
+
+    "ingredients": "Go‘sht, non, piyoz, tuz, ziravorlar",
+
+    "steps": "1. Go‘shtni qaynatib oling. 2. Nonni bo‘laklab, suvda namlang. 3. Hammasini aralashtirib xizmat qiling.",
+
+    "category": ["national_dishes"],
+
+    "isVegetarian": false,
+
+    "isDiabetes": false,
+
+    "isCalorie": true,
+
+    "isKids": false,
+
+    "isProtein": true
+
+  },
+
+  {
+
+    "id": "",
+
+    "title": "Grechka bilan go‘sht",
+
+    "imageUrl": "https://img.recraft.ai/21UOqYaaHw0Ub1kB_P22zNl4fUelQUE1ORLNCUo7QEM/rs:fit:1434:1024:0/q:95/g:no/plain/abs://prod/images/386e317b-d521-4261-95b7-aaa3bb16d1f4@jpg",
+
+    "duration": 45,
+
+    "ingredients": "Grechka, go‘sht, piyoz, sabzi, tuz",
+
+    "steps": "1. Go‘shtni qovuring. 2. Grechkani alohida pishiring. 3. Hammasini aralashtirib xizmat qiling.",
+
+    "category": ["national_dishes", "for_athletes"],
+
+    "isVegetarian": false,
+
+    "isDiabetes": false,
+
+    "isCalorie": true,
+
+    "isKids": true,
+
+    "isProtein": true
+
+  },
+
+  {
+
+    "id": "",
+
+    "title": "Qovurilgan baliq",
+
+    "imageUrl": "https://img.recraft.ai/4vUE8-FqUO9jTAwXTq7VUOUTu3caLt-SPSE2z4Gl-ww/rs:fit:1434:1024:0/q:95/g:no/plain/abs://prod/images/1b03cbe4-b48a-4541-b662-c34daa68caab@jpg",
+
+    "duration": 30,
+
+    "ingredients": "Baliq, limon, tuz, murch, yog‘",
+
+    "steps": "1. Baliqni tozalang va tuz murch bilan aralashtiring. 2. Yog‘da qovuring. 3. Limon bilan xizmat qiling.",
+
+    "category": ["national_dishes", "for_athletes"],
+
+    "isVegetarian": false,
+
+    "isDiabetes": false,
+
+    "isCalorie": true,
+
+    "isKids": true,
+
+    "isProtein": true
+
+  },
+
+  {
+
+    "id": "",
+
+    "title": "Qandolot noni",
+
+    "imageUrl": "https://img.recraft.ai/PC1H-IM7iE1dFzoZmJF0OqBzGrlk3KyMGEZd8p5WaJ4/rs:fit:1434:1024:0/q:95/g:no/plain/abs://prod/images/b74f0c5a-6090-4c4d-bff0-b6fabbb56ff9@jpg",
+
+    "duration": 120,
+
+    "ingredients": "Un, suv, shakar, xamirturush, tuz",
+
+    "steps": "1. Xamir yoğiring. 2. Nonni shakllantiring va dam oling. 3. Pishiring va sovutib xizmat qiling.",
+
+    "category": ["bread_and_pastry_products", "sweets_and_desserts"],
+
+    "isVegetarian": true,
+
+    "isDiabetes": true,
+
+    "isCalorie": true,
+
+    "isKids": true,
+
+    "isProtein": false
+
+  }
 ];
 
 
